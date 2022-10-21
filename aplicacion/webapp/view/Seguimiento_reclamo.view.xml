@@ -1,0 +1,159 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:m="sap.m" xmlns:f="sap.f" xmlns:layout="sap.ui.layout"
+	xmlns:table="sap.ui.table" xmlns:form="sap.ui.layout.form" controllerName="apph.aplicacion.controller.Seguimiento_reclamo"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<!-- <Image id="bg_imagen" src="./images/plantilla.png"/> -->
+	<Page class="" showSubHeader="true">
+		<m:customHeader>
+			<m:Bar class="Cabecera clsCabeceraStyle_1">
+				<m:contentLeft>
+					<Button id="back" class="" icon="sap-icon://nav-back" press="pressHome"/>
+					<!--<Button id="button" class="clsMenu" icon="sap-icon://menu2" press="onPressMenu"/>-->
+					<!--<m:Image src="./images/logo.png" class="Logo clsLogoRedondos" press="pressHome" height="3rem"/>-->
+				</m:contentLeft>
+				<m:contentMiddle>
+					<Title class="classiconoblanco" text="SEGUIMIENTO RECLAMO"></Title>
+				</m:contentMiddle>
+				<m:contentRight>
+					<Button icon="sap-icon://customer" type="Transparent" press=".onMenuDerecha">
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</layoutData>
+					</Button>
+				</m:contentRight>
+			</m:Bar>
+		</m:customHeader>
+		<content>
+			<SplitApp id="id_SP_Split" class="clasSP_SplitApp" initialDetail="detail" initialMaster="master" mode="ShowHideMode">
+				<masterPages>
+					<Page id="master" backgroundDesign="List">
+						<customHeader>
+							<m:Bar class="Cabecera clsCabeceraStyle_2">
+								<!--<OverflowToolbar>-->
+								<m:contentLeft></m:contentLeft>
+								<m:contentMiddle>
+									<Title text="Reclamos"></Title>
+								</m:contentMiddle>
+								<m:contentRight>
+									<!--<ToolbarSpacer/>-->
+									<Button class="clsBotonEst1" icon="sap-icon://filter" type="Emphasized" press="fnFiltro"></Button>
+									<!--</OverflowToolbar>-->
+								</m:contentRight>
+							</m:Bar>
+						</customHeader>
+						<subHeader>
+							<m:Bar class="Cabecera clsCabeceraStyle_2">
+								<m:contentLeft></m:contentLeft>
+								<m:contentMiddle>
+									<!--<SearchField id='id_SP_Search' liveChange=".onSearch" width="100%"/>-->
+									<SearchField id='id_SP_Search' placeholder="Buscar reclamo o guía" liveChange=".onSearch" width="100%"/>
+								</m:contentMiddle>
+								<m:contentRight>
+								</m:contentRight>
+							</m:Bar>
+						</subHeader>
+						<content>
+							<List id="id_SP_ListaPedido" items="{oModel>/SEGUIMIENTO_RECLAMO_CAB}" mode="SingleSelectMaster" select="onReclamoDetalle"
+								noDataText="No se encontraron registros">
+								<ObjectListItem icon="sap-icon://request" title="{oModel>NRO_RECLAMO_T}" type="Active">
+									<firstStatus>
+										<ObjectStatus text="{oModel>ESTADO_T}" state="{oModel>STATUS}"/>
+									</firstStatus>
+									<ObjectAttribute text=" "/>
+									<ObjectAttribute title="Destinatario" text="{oModel>KUNN2}"/>
+									<ObjectAttribute title="Guía" text="{oModel>XBLNR}"/>
+									<ObjectAttribute title="Fecha de registro" text="{oModel>ERDAT_T}"/>
+								</ObjectListItem>
+							</List>
+						</content>
+					</Page>
+				</masterPages>
+				<detailPages>
+					<Page id="detail" backgroundDesign="Solid">
+						<customHeader>
+							<m:Bar class="Cabecera clsCabeceraStyle_2">
+								<!--<OverflowToolbar>-->
+								<m:contentLeft>
+									<Button class="clsBotonEst1 clsNavButton" text="" icon="sap-icon://nav-back" type="Emphasized" press="onPressDetailBack"></Button>
+								</m:contentLeft>
+								<m:contentMiddle>
+									<Title text="Detalle"></Title>
+								</m:contentMiddle>
+								<m:contentRight>
+									<!--<ToolbarSpacer/>-->
+									<Button id="idSR_Edit" class="clsBotonEst1" icon="sap-icon://edit" type="Emphasized" press="onEditConf"></Button>
+									<Button id="idSR_Delete" class="clsBotonEst1" icon="sap-icon://delete" type="Emphasized" press="onDelConf"></Button>
+									<!--</OverflowToolbar>-->
+								</m:contentRight>
+							</m:Bar>
+						</customHeader>
+						<ObjectHeader id="id_SP_ObjectHeader" responsive="true" fullScreenOptimized="false" binding="{oModel>/RECLAMO_CAB}" icon="sap-icon://product"
+							intro="{oModel>/RECLAMO_CAB/DEST_NAME}" title="{oModel>/RECLAMO_CAB/NRO_RECLAMO_T}"
+							number="{oModel>/RECLAMO_CAB/NETWR}" numberUnit="{oModel>/RECLAMO_CAB/WAERK}" numberState="Success" backgroundDesign="Translucent"
+							class="sapUiResponsivePadding--header clsObjectHeader">
+							<ObjectAttribute title="Guía" text="{oModel>/RECLAMO_CAB/XBLNR}"/>
+							<ObjectAttribute title="Creado por" text="{oModel>/RECLAMO_CAB/USER_NAME}"/>
+							<ObjectAttribute title="Tipo" text="{oModel>/RECLAMO_CAB/TIPO_T}"/>
+							<ObjectAttribute title="Fecha creación" text="{oModel>/RECLAMO_CAB/ERDAT_T}"/>
+							<ObjectAttribute title="Fecha modif" text="{oModel>/RECLAMO_CAB/AEDAT_T}"/>
+							<ObjectAttribute title="Ejecutivo venta" text="{oModel>/RECLAMO_CAB/EJEC_NAME}"/>
+							<ObjectAttribute title="Hora creación" text="{oModel>/RECLAMO_CAB/ERZET_T}"/>
+							<ObjectAttribute title="Hora modif" text="{oModel>/RECLAMO_CAB/AEZET_T}"/>
+							<statuses>
+								<ObjectStatus title="Estado" text="{oModel>/RECLAMO_CAB/ESTADO_T}" state="{oModel>/RECLAMO_CAB/STATUS}"/>
+							</statuses>
+						</ObjectHeader>
+						<layout:Grid defaultSpan="XL12 L12 M12 S12" class="clsBGBlanco clsNoPadding clsSR_VBox">
+							<ObjectAttribute title="Comentario" text="{oModel>/RECLAMO_CAB/COMENTARIO}"/>
+							<Label text="" >
+								<layoutData>
+									<layout:GridData span="XL12 L12 M12 S12" />
+								</layoutData>
+							</Label>
+							<ObjectAttribute title="Respuesta" text="{oModel>/RECLAMO_CAB/RESPUESTA}"/>
+							<!--<Label text="Comentario">-->
+							<!--	<layoutData>-->
+							<!--		<layout:GridData span="XL1 L1 M2 S3" />-->
+							<!--	</layoutData>-->
+							<!--</Label>-->
+							<!--<Label text="{oModel>/RECLAMO_CAB/COMENTARIO}"></Label>-->
+							<!--<TextArea value="" showExceededText="true" maxLength="200" width="100%"-->
+							<!--	valueState="{= ${/value}.length > 200 ? 'Warning' : 'None' }" valueLiveUpdate="false" liveChange="handleLiveChange"/>-->
+							<!--<Label text="Respuesta">-->
+							<!--	<layoutData>-->
+							<!--		<layout:GridData span="XL1 L1 M2 S3" />-->
+							<!--	</layoutData>-->
+							<!--</Label>-->
+							<!--<Label text="-"></Label>-->
+							<!--<TextArea value="" showExceededText="true" maxLength="200" width="100%"-->
+							<!--	valueState="{= ${/value}.length > 200 ? 'Warning' : 'None' }" valueLiveUpdate="false" liveChange="handleLiveChange"/>-->
+						</layout:Grid>
+						<VBox class="sapUiContentPadding clsSP_tbl">
+							<List 
+								id="idSP_ListReclamo"
+								headerText="Archivos de evidencias"
+								items="{oModel>/SEGUIMIENTO_RECLAMO_DET}"
+						        swipe="handleSwipe">
+								<!--<StandardListItem press=".onDownloadFile"-->
+								<!--	title="{oModel>NOMBRE_DOC}"-->
+								<!--	description="{oModel>EXTENSION}"-->
+								<!--	icon="{ProductPicUrl}"-->
+								<!--	iconDensityAware="false"-->
+								<!--	iconInset="false" />-->
+								<!--<swipeContent>-->
+								<!--	<Button press="onDownloadFile" />-->
+								<!--</swipeContent>-->
+								<ObjectListItem
+									title="{oModel>File}"
+									type="Active"
+									icon="sap-icon://documents"
+									press="onDownloadFile">
+									<!--<ObjectAttribute title="{oModel>EXTENSION}" />-->
+								</ObjectListItem>
+							</List>
+						</VBox>
+					</Page>
+				</detailPages>
+			</SplitApp>
+		</content>
+	</Page>
+</mvc:View>

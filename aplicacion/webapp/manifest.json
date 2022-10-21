@@ -1,0 +1,253 @@
+{
+  "_version": "1.42.0",
+  "sap.app": {
+    "id": "apph.aplicacion",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.7.5",
+      "toolsId": "75be20d4-e9cd-4d5c-92e6-2a50c4b1719a"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.102.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "apph.aplicacion.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "apph.aplicacion.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "RoutevMain",
+          "pattern": ":?query:",
+          "target":  "TargetvMain" 
+        },
+        {
+            "pattern": "Consulta_precio",
+            "name": "Consulta_precio",
+            "target": "Consulta_precio"
+        },
+        {
+            "pattern": "Seguimiento_Pedido",
+            "name": "Seguimiento_Pedido",
+            "target": "Seguimiento_Pedido"
+        },
+        {
+            "pattern": "Conf_administrador",
+            "name": "Conf_administrador",
+            "target": "Conf_administrador"
+        },
+        {
+            "pattern": "Estado_cuenta",
+            "name": "Estado_cuenta",
+            "target": "Estado_cuenta"
+        },
+        {
+            "pattern": "Factura_cliente",
+            "name": "Factura_cliente",
+            "target": "Factura_cliente"
+        },
+        {
+            "pattern": "Presentar_reclamo",
+            "name": "Presentar_reclamo",
+            "target": "Presentar_reclamo"
+        },
+        {
+            "pattern": "Seguimiento_reclamo",
+            "name": "Seguimiento_reclamo",
+            "target": "Seguimiento_reclamo"
+        },
+        {
+            "pattern": "Seguimiento_reclamo_edit",
+            "name": "Seguimiento_reclamo_edit",
+            "target": "Seguimiento_reclamo_edit"
+        },
+        {
+            "pattern": "Atencion_reclamo",
+            "name": "Atencion_reclamo",
+            "target": "Atencion_reclamo"
+        },
+        {
+            "pattern": "Solicitar_pedido",
+            "name": "Solicitar_pedido",
+            "target": "Solicitar_pedido"
+        },
+        {
+            "pattern": "Seguimiento_pedido_edit",
+            "name": "Seguimiento_pedido_edit",
+            "target": "Seguimiento_pedido_edit"
+        },
+        {
+            "pattern": "Carga_masiva",
+            "name": "Carga_masiva",
+            "target": "Carga_masiva"
+        }
+      ],
+      "targets": {
+        "TargetvMain": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "vMainBack",
+          "viewName": "vMain"
+        }, 
+        "Consulta_precio": {
+            "viewType": "XML",
+            "transition": "slide",
+            "clearControlAggregation": false,
+            "viewId": "Consulta_precio",
+            "viewName": "Consulta_precio"
+        },
+        "Seguimiento_Pedido": {
+            "viewType": "XML",
+            "transition": "slide",
+            "clearControlAggregation": false,
+            "viewId": "Seguimiento_Pedido",
+            "viewName": "Seguimiento_Pedido"
+        },
+        "Conf_administrador": {
+            "viewType": "XML",
+            "transition": "slide",
+            "clearControlAggregation": false,
+            "viewId": "Conf_administrador",
+            "viewName": "Conf_administrador"
+        },
+        "Estado_cuenta": {
+            "viewType": "XML",
+            "transition": "slide",
+            "clearControlAggregation": false,
+            "viewId": "Estado_cuenta",
+            "viewName": "Estado_cuenta"
+        },
+        "Factura_cliente": {
+            "viewType": "XML",
+            "transition": "slide",
+            "clearControlAggregation": false,
+            "viewId": "Factura_cliente",
+            "viewName": "Factura_cliente"
+        },
+        "Presentar_reclamo": {
+            "viewType": "XML",
+            "transition": "slide",
+            "clearControlAggregation": false,
+            "viewId": "Presentar_reclamo",
+            "viewName": "Presentar_reclamo"
+        },
+        "Seguimiento_reclamo": {
+            "viewType": "XML",
+            "transition": "slide",
+            "clearControlAggregation": false,
+            "viewId": "Seguimiento_reclamo",
+            "viewName": "Seguimiento_reclamo"
+        },
+        "Seguimiento_reclamo_edit": {
+            "viewType": "XML",
+            "viewId": "Seguimiento_reclamo_edit",
+            "viewName": "Seguimiento_reclamo_edit"
+        },
+        "Atencion_reclamo": {
+            "viewType": "XML",
+            "viewId": "Atencion_reclamo",
+            "viewName": "Atencion_reclamo"
+        },
+        "Solicitar_pedido": {
+            "viewType": "XML",
+            "viewId": "Solicitar_pedido",
+            "viewName": "Solicitar_pedido"
+        },
+        "Seguimiento_pedido_edit": {
+            "viewType": "XML",
+            "viewId": "Seguimiento_pedido_edit",
+            "viewName": "Seguimiento_pedido_edit"
+        },
+        "Carga_masiva": {
+            "viewType": "XML",
+            "viewId": "Carga_masiva",
+            "viewName": "Carga_masiva"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "apph.aplicacion.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}

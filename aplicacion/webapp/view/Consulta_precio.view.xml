@@ -1,0 +1,116 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:m="sap.m" xmlns:f="sap.f" xmlns:layout="sap.ui.layout"
+	xmlns:table="sap.ui.table" controllerName="apph.aplicacion.controller.Consulta_precio"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<!-- <Image id="bg_imagen" src="./images/plantilla.png"/> -->
+	<Page class="Reporte ">
+		<m:customHeader>
+			<m:Bar class="Cabecera clsCabeceraStyle_1">
+				<m:contentLeft>
+					<Button id="back" class="" icon="sap-icon://nav-back" press="pressHome"/>
+					<!--<Button id="button" class="clsMenu" icon="sap-icon://menu2" press="onPressMenu"/>-->
+					<!--<m:Image src="./images/logo.png" class="Logo clsLogoRedondos" press="pressHome" height="3rem"/>-->
+				</m:contentLeft>
+				<m:contentMiddle>
+					<Title class="classiconoblanco" text="CONSULTAR PRECIO"></Title>
+				</m:contentMiddle>
+				<m:contentRight>
+					<Button icon="sap-icon://customer" type="Transparent" press=".onMenuDerecha" ariaHasPopup="Menu">
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</layoutData>
+					</Button>
+				</m:contentRight>
+			</m:Bar>
+		</m:customHeader>
+		<content> 
+			<f:DynamicPage id="dynamicPageId"  headerExpanded="true" preserveHeaderStateOnScroll="true" toggleHeaderOnTitleClick="false">
+				 
+				<f:header>
+					<f:DynamicPageHeader pinnable="false" class="clsFiltros bg_imagen_blur">
+						<layout:Grid defaultSpan="L6 M6 S12">
+							<layout:content>
+								<MessageStrip id="MS_ValidoHasta" text="" type="Success" class="sapUiMediumMarginBottom"></MessageStrip>
+							</layout:content>
+						</layout:Grid>
+						<layout:Grid defaultSpan="L3 M4 S12">
+							<layout:content> 
+                                <VBox justifyContent="Start" alignItems="Start">
+                                    <Label text="Fecha de precio" labelFor="id_Datepicker1"> 
+                                    </Label> 
+                                    <DatePicker id="id_Datepicker1" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" width="100%" required="true" placeholder="DD/MM/AAAA"
+                                        change="fnAplicarFiltro"/>
+                                </VBox> 
+							</layout:content>
+						</layout:Grid>
+					</f:DynamicPageHeader>
+				</f:header>
+				<f:content>
+					<table:Table id="table" class="clsTblEstadoCuenta clsTblStyle1" selectionMode="None" rows="{oModel>/LIST_CONSULTAPRECIO}" sort="sortDeliveryDate" ariaLabelledBy="title"
+						alternateRowColors="true" showColumnVisibilityMenu="false" enableColumnFreeze="false" enableCellFilter="false" >
+						<table:extension>
+							<m:OverflowToolbar style="Clear">
+								<m:Title id="title" text=""/>
+								<m:ToolbarSpacer/>
+								<Button class="clsBotonEst1" icon="sap-icon://refresh" type="Emphasized" press="fnRefrescar"/>
+								<Button class="clsBotonEst1" icon="sap-icon://excel-attachment" type="Emphasized" press="fnDescargar"/>
+							</m:OverflowToolbar>
+						</table:extension>
+						<table:columns>
+							<table:Column id="tbl1_material" minWidth="100px" sortProperty="MATNR" filterProperty="MATNR">
+								<m:Label text="Material" textAlign="Center"/>
+								<table:template>
+									<m:Text text="{oModel>MATNR}" wrapping="false"/>
+								</table:template>
+							</table:Column>
+							<table:Column id="tbl1_mat_desc" width="26rem" minWidth="220px" sortProperty="MAKTX" filterProperty="MAKTX">
+								<m:Label text="Descripción"/>
+								<table:template>
+									<m:Text text="{oModel>MAKTX}" wrapping="false"/>
+								</table:template>
+							</table:Column>
+							<table:Column id="tbl1_cantidad" minWidth="100px" hAlign="End" sortProperty="KPEIN">
+								<m:Label text="Cantidad base"/>
+								<table:template>
+									<m:Label text="{oModel>KPEIN}"/>
+								</table:template>
+							</table:Column>
+							<table:Column id="tbl1_un_medida" minWidth="100px" sortProperty="KMEIN" filterProperty="KMEIN">
+								<m:Label text="Unidad de medida"/>
+								<table:template>
+									<m:Text text="{oModel>KMEIN}" wrapping="false"/>
+								</table:template>
+							</table:Column>
+							<table:Column id="tbl1_importe" minWidth="100px" hAlign="End" sortProperty="KBETR">
+								<m:Label text="Importe base"/>
+								<table:template>
+									<m:Label text="{oModel>KBETR}"/>
+								</table:template>
+							</table:Column>
+							<table:Column id="tbl1_importe_uni" minWidth="100px" hAlign="End" sortProperty="KBETR">
+								<m:Label text="Precio Unitario"/>
+								<table:template>
+									<m:Label text="{oModel>precio_unitario}"/>
+								</table:template>
+							</table:Column>
+							<table:Column id="tbl1_un_cond" minWidth="100px" sortProperty="KONWA" filterProperty="KONWA">
+								<m:Label text="Moneda"/>
+								<table:template>
+									<m:Text text="{oModel>KONWA}" wrapping="false"/>
+								</table:template>
+							</table:Column>
+						</table:columns>
+					</table:Table> 
+				</f:content> 
+				<f:footer>
+					<OverflowToolbar>
+						<Button icon="sap-icon://message-popup" text="{/messagesLength}" type="Emphasized" press="onMessageButtonPress"
+							visible="{= !!${/messagesLength}}"/>
+						<ToolbarSpacer/>
+						<Button type="Accept" text="Accept"/>
+						<Button type="Reject" text="Reject"/>
+					</OverflowToolbar>
+				</f:footer>
+			</f:DynamicPage>
+		</content>
+	</Page>
+</mvc:View>

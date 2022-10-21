@@ -1,0 +1,472 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:m="sap.m" xmlns:f="sap.f" xmlns:layout="sap.ui.layout"
+	xmlns:table="sap.ui.table" controllerName="apph.aplicacion.controller.Conf_administrador"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<!-- <Image id="bg_imagen" src="./images/plantilla.png"/> -->
+	<Page>
+		<m:customHeader>
+			<m:Bar class="Cabecera clsCabeceraStyle_1">
+				<m:contentLeft>
+					<Button id="back" class="" icon="sap-icon://nav-back" press="pressHome"/>
+					<!--<Button id="button" class="clsMenu" icon="sap-icon://menu2" press="onPressMenu"/>-->
+					<!--<m:Image src="./images/logo.png" class="Logo clsLogoRedondos" press="pressHome" height="3rem"/>-->
+				</m:contentLeft>
+				<m:contentMiddle>
+					<Title class="classiconoblanco" text="ADMINISTRADOR"></Title>
+				</m:contentMiddle>
+				<m:contentRight>
+					<Button icon="sap-icon://customer" type="Transparent" press=".onMenuDerecha" ariaHasPopup="Menu">
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</layoutData>
+					</Button>
+				</m:contentRight>
+			</m:Bar>
+		</m:customHeader>
+		<content>
+			<!--<m:Bar class="Cabecera clsSubCabecera clsMenuOpciones">-->
+			<!--	<m:contentLeft>-->
+			<!--		<OverflowToolbar>-->
+			<!--			<MenuButton text="Gestión comercial" type="Transparent">-->
+			<!--				<menu>-->
+			<!--					<Menu>-->
+			<!--						<MenuItem text="Consulta de precios" icon="sap-icon://lead" press="onNav1"/>-->
+			<!--						<MenuItem text="Solicitar pedido" icon="sap-icon://request" press="onPress123"/>-->
+			<!--						<MenuItem text="Seguimiento de pedido" icon="sap-icon://customer-order-entry" press="onPress123"/>-->
+			<!--					</Menu>-->
+			<!--				</menu>-->
+			<!--			</MenuButton>-->
+			<!--			<MenuButton text="Gestión financiera" type="Transparent">-->
+			<!--				<menu>-->
+			<!--					<Menu>-->
+			<!--						<MenuItem text="Gestión de crédito" icon="sap-icon://batch-payments" press="onPress123"/>-->
+			<!--						<MenuItem text="Estado de cuenta" icon="sap-icon://status-positive" press="onPress123"/>-->
+			<!--						<MenuItem text="Gestión de facturas" icon="sap-icon://my-sales-order" press="onPress123"/>-->
+			<!--					</Menu>-->
+			<!--				</menu>-->
+			<!--			</MenuButton>-->
+			<!--			<MenuButton text="Gestión reclamos" type="Transparent">-->
+			<!--				<menu>-->
+			<!--					<Menu>-->
+			<!--						<MenuItem text="Presentar reclamo" icon="sap-icon://request" press="onPress123"/>-->
+			<!--						<MenuItem text="Seguimiento de reclamo" icon="sap-icon://clinical-tast-tracker" press="onPress123"/>-->
+			<!--						<MenuItem text="Atención de reclamo" icon="sap-icon://supplier" press="onPress123"/>-->
+			<!--					</Menu>-->
+			<!--				</menu>-->
+			<!--			</MenuButton>-->
+			<!--		</OverflowToolbar>-->
+			<!--	</m:contentLeft>-->
+			<!--	<m:contentMiddle></m:contentMiddle>-->
+			<!--	<m:contentRight></m:contentRight>-->
+			<!--</m:Bar>-->
+			<IconTabBar id="idIconTabBarSeparatorNoIcon" expanded="true" expandable="false" class="sapUiResponsiveContentPadding clsIconTabBar clsTblStyle1">
+				<items>
+					
+					<IconTabFilter key="usuarios" icon="sap-icon://employee-pane" text="Usuarios" iconColor="Positive">
+						<table:Table id="id_CA_TableUsuarios" selectionMode="None" sort="sortDeliveryDate" rows="{oModel>/DM_USUARIOS}" visibleRowCount="10"
+							showNoData="No se hallaron perfiles." >
+							<table:noData>
+								<m:Link class="sapUiMediumMargin" text="No se hallaron registros."/>
+							</table:noData>
+							<table:extension>
+								<m:OverflowToolbar style="Clear">
+									<core:Icon src="sap-icon://employee-pane" size="1.25rem"/>
+									<m:Title id="idTblUsuario_title" text="Usuarios"/>
+									<m:ToolbarSpacer/>
+									<m:Input id="idTxtUsuario" value="" type="Text" placeholder="Usuario" liveChange=".handleLiveChange('id_CA_TableUsuarios',$event)"
+												required="false" width="150px" editable="true"/>
+									<!--<Button class="clsBotonEst1" text="Añadir" type="Emphasized" icon="sap-icon://sys-add" press="onAddUsuario"/>-->
+								</m:OverflowToolbar>
+							</table:extension>
+							<table:columns>
+								<table:Column hAlign="Center" autoResizable="true" minWidth="100px" resizable="true" sortProperty="USR_LOGIN" filterProperty="USR_LOGIN">
+									<m:Text text="Usuario"/>
+									<table:template>
+										<m:Label text="{oModel>USR_LOGIN}"/>
+									</table:template>
+								</table:Column>
+								<!--<table:Column hAlign="Center" minWidth="200px"  autoResizable="true" sortProperty="NOMBRE1" filterProperty="NOMBRE1">-->
+								<!--	<m:Text text="Nombre"/>-->
+								<!--	<table:template>-->
+								<!--		<m:Label text="{oModel>NOMBRE1}"/>-->
+								<!--	</table:template>-->
+								<!--</table:Column>-->
+								<!--<table:Column hAlign="Center" minWidth="200px"  autoResizable="true" sortProperty="EMAIL1" filterProperty="EMAIL1">-->
+								<!--	<m:Text text="Email"/>-->
+								<!--	<table:template>-->
+								<!--		<m:Label text="{oModel>EMAIL1}"/>-->
+								<!--	</table:template>-->
+								<!--</table:Column>-->
+								<table:Column hAlign="Center" minWidth="200px"  autoResizable="true" sortProperty="PERFIL" filterProperty="PERFIL">
+									<m:Text text="Perfil"/>
+									<table:template>
+										<m:Label text="{oModel>PERFIL_T}"/>
+									</table:template>
+								</table:Column>
+								<table:Column hAlign="Center" autoResizable="true">
+									<m:Text text="Acción"/>
+									<table:template>
+										<HBox alignContent="Center" alignItems="Center" justifyContent="Center">
+											<Button class="sapUiTinyMarginEnd" tooltip="Editar" icon="sap-icon://edit" type="Success" press="onEditUsuario"/>
+											<!--<Button tooltip="Eliminar" icon="sap-icon://delete" type="Negative" press="onDelConfUsuario"/>-->
+										</HBox>
+									</table:template>
+								</table:Column>
+							</table:columns>
+						</table:Table>
+					</IconTabFilter>
+					<IconTabSeparator icon=""/>
+					<IconTabFilter key="perfil" icon="sap-icon://person-placeholder" text="Perfiles" iconColor="Positive">
+						<table:Table id="id_CA_TablePerfil" selectionMode="None" sort="sortDeliveryDate" rows="{oModel>/DM_PERFIL}" visibleRowCount="10"
+							showNoData="No se hallaron perfiles." >
+							<!--<table:toolbar>-->
+							<!--	<m:Toolbar height="auto" class="sapUiSmallMargin">-->
+							<!--		<core:Icon src="sap-icon://activity-items" alt="Cart" size="1.25rem"/>-->
+							<!--		<m:Title id="idConteoUsers" text="Tabla de tipo de reclamos" titleStyle="H3"/>-->
+							<!--		<m:ToolbarSpacer/>-->
+							<!--	</m:Toolbar>-->
+							<!--</table:toolbar>-->
+							<table:noData>
+								<m:Link class="sapUiMediumMargin" text="No se hallaron tipos de reclamos."/>
+							</table:noData>
+							<table:extension>
+								<m:OverflowToolbar style="Clear">
+									<core:Icon src="sap-icon://business-objects-mobile" size="1.25rem"/>
+									<m:Title id="idTblPerfil_title" text="Perfiles"/>
+									<m:ToolbarSpacer/>
+									<m:Input id="idTxtPerfil" value="" type="Text" placeholder="Ingrese perfil" liveChange=".handleLiveChange('id_CA_TablePerfil',$event)"
+												required="false" width="150px" editable="true"/>
+									<Button class="clsBotonEst1" text="Añadir" type="Emphasized" icon="sap-icon://sys-add" press="onAddPerfil"/>
+								</m:OverflowToolbar>
+							</table:extension>
+							<table:columns>
+								<table:Column hAlign="Center" minWidth="100px" autoResizable='true' resizable="true" sortProperty="PERFIL" filterProperty="PERFIL">
+									<m:Text text="Perfil"/>
+									<table:template>
+										<m:Label text="{oModel>PERFIL}"/>
+									</table:template>
+								</table:Column>
+								<table:Column hAlign="Center" minWidth="200px" resizable="true">
+									<m:Text text="Descripción"/>
+									<table:template>
+										<m:Label text="{oModel>DESCRIPCION}"/>
+									</table:template>
+								</table:Column>
+								<table:Column hAlign="Center" minWidth="100px" resizable="true">
+									<m:Text text="Acción"/>
+									<table:template>
+										<HBox alignContent="Center" alignItems="Center" justifyContent="Center">
+											<Button class="sapUiTinyMarginEnd" tooltip="Editar" icon="sap-icon://edit" type="Success" press="onEditPerfil"/>
+											<Button tooltip="Eliminar" icon="sap-icon://delete" type="Negative" press="onDelConfPerfil"/>
+										</HBox>
+									</table:template>
+								</table:Column>
+							</table:columns>
+						</table:Table>
+					</IconTabFilter>
+					<IconTabSeparator icon=""/>
+					<IconTabFilter key="info" icon="sap-icon://business-objects-mobile" text="Tipo de reclamos" iconColor="Positive">
+						<table:Table id="id_CA_TableUser" selectionMode="None" sort="sortDeliveryDate" rows="{oModel>/DM_TIPO_RECLAMO}" visibleRowCount="10"
+							showNoData="No se hallaron tipos de reclamos." >
+							<!--<table:toolbar>-->
+							<!--	<m:Toolbar height="auto" class="sapUiSmallMargin">-->
+							<!--		<core:Icon src="sap-icon://activity-items" alt="Cart" size="1.25rem"/>-->
+							<!--		<m:Title id="idConteoUsers" text="Tabla de tipo de reclamos" titleStyle="H3"/>-->
+							<!--		<m:ToolbarSpacer/>-->
+							<!--	</m:Toolbar>-->
+							<!--</table:toolbar>-->
+							<table:noData>
+								<m:Link class="sapUiMediumMargin" text="No se hallaron tipos de reclamos."/>
+							</table:noData>
+							<table:extension>
+								<m:OverflowToolbar style="Clear">
+									<core:Icon src="sap-icon://business-objects-mobile" size="1.25rem"/>
+									<m:Title id="idTblReclamo_title" text="Tipo de reclamos"/>
+									<m:ToolbarSpacer/>
+									<m:Input id="idTxtEmp" value="" type="Text" placeholder="Ingrese tipo" liveChange=".handleLiveChange('id_CA_TableUser',$event)"
+												required="false" width="150px" editable="true"/>
+									<Button class="clsBotonEst1" text="Añadir" type="Emphasized" icon="sap-icon://sys-add" press="onAddTipoReclamo"/>
+								</m:OverflowToolbar>
+							</table:extension>
+							<table:columns>
+								<table:Column hAlign="Center" minWidth="100px" autoResizable='true' resizable="true" sortProperty="TIPO" filterProperty="TIPO">
+									<m:Text text="Tipo"/>
+									<table:template>
+										<m:Label text="{oModel>TIPO}"/>
+									</table:template>
+								</table:Column>
+								<table:Column hAlign="Center" minWidth="200px" resizable="true">
+									<m:Text text="Descripción"/>
+									<table:template>
+										<m:Label text="{oModel>DESCRIPCION}"/>
+									</table:template>
+								</table:Column>
+								<table:Column hAlign="Center" minWidth="100px" resizable="true">
+									<m:Text text="Acción"/>
+									<table:template>
+										<HBox alignContent="Center" alignItems="Center" justifyContent="Center">
+											<Button class="sapUiTinyMarginEnd" tooltip="Editar" icon="sap-icon://edit" type="Success" press="fnEditarTipoReclamo"/>
+											<Button tooltip="Eliminar" icon="sap-icon://delete" type="Negative" press="onEliminarConfirm"/>
+										</HBox>
+									</table:template>
+								</table:Column>
+							</table:columns>
+						</table:Table>
+					</IconTabFilter>
+					<!--<IconTabSeparator icon=""/>-->
+					<!--<IconTabFilter key="ejec_venta" icon="sap-icon://leads" text="Ejec. ventas" iconColor="Positive">-->
+					<!--	<table:Table id="id_CA_TableEjecVen" sort="sortDeliveryDate" rows="{oModel>/DM_EJEC_VENTA}" visibleRowCount="10"-->
+					<!--		showNoData="No se hallaron registros." >-->
+					<!--		<table:noData>-->
+					<!--			<m:Link class="sapUiMediumMargin" text="No se hallaron registros."/>-->
+					<!--		</table:noData>-->
+					<!--		<table:extension>-->
+					<!--			<m:OverflowToolbar style="Clear">-->
+					<!--				<core:Icon src="sap-icon://leads" size="1.25rem"/>-->
+					<!--				<m:Title id="idTblEjecVen_title" text="Ejec. ventas"/>-->
+					<!--				<m:ToolbarSpacer/>-->
+					<!--				<m:Input id="idTxtEjecVen" value="" type="Text" placeholder="Buscar..." liveChange=".handleLiveChange('id_CA_TableEjecVen',$event)"-->
+					<!--							required="false" width="150px" editable="true"/>-->
+					<!--				<Button class="clsBotonEst1" text="Añadir" type="Emphasized" icon="sap-icon://sys-add" press="onAddEjecVen"/>-->
+					<!--			</m:OverflowToolbar>-->
+					<!--		</table:extension>-->
+					<!--		<table:columns>-->
+					<!--			<table:Column hAlign="Center" minWidth="100px" autoResizable='true' resizable="true" sortProperty="ID_EJECUTIVO" filterProperty="ID_EJECUTIVO">-->
+					<!--				<m:Text text="ID ejecutivo"/>-->
+					<!--				<table:template>-->
+					<!--					<m:Label text="{oModel>ID_EJECUTIVO}"/>-->
+					<!--				</table:template>-->
+					<!--			</table:Column>-->
+					<!--			<table:Column hAlign="Center" minWidth="200px" resizable="true">-->
+					<!--				<m:Text text="Nombre"/>-->
+					<!--				<table:template>-->
+					<!--					<m:Label text="{oModel>NOMBRE}"/>-->
+					<!--				</table:template>-->
+					<!--			</table:Column>-->
+					<!--			<table:Column hAlign="Center" minWidth="100px" resizable="true">-->
+					<!--				<m:Text text="Acción"/>-->
+					<!--				<table:template>-->
+					<!--					<Toolbar height="auto">-->
+					<!--						<Button text="Editar" tooltip="Editar" icon="sap-icon://edit" type="Accept" width="100%" press="onEditEjecVenta"/>-->
+					<!--						<Button text="Eliminar" tooltip="Eliminar" icon="sap-icon://delete" type="Reject" width="50%" press="onDelConfEjecVenta"/>-->
+					<!--					</Toolbar>-->
+					<!--				</table:template>-->
+					<!--			</table:Column>-->
+					<!--		</table:columns>-->
+					<!--	</table:Table>-->
+					<!--</IconTabFilter>-->
+					<IconTabSeparator icon=""/>
+					<IconTabFilter key="mensajes" icon="sap-icon://message-popup" text="Mensajes" iconColor="Positive">
+						<table:Table id="id_CA_TableMsg" selectionMode="None" sort="sortDeliveryDate" rows="{oModel>/DM_MENSAJES}" visibleRowCount="10"
+							showNoData="No se hallaron registros." >
+							<table:noData>
+								<m:Link class="sapUiMediumMargin" text="No se hallaron registros."/>
+							</table:noData>
+							<table:extension>
+								<m:OverflowToolbar style="Clear">
+									<core:Icon src="sap-icon://message-popup" size="1.25rem"/>
+									<m:Title id="idTblMsg_title" text="Mensajes"/>
+									<m:ToolbarSpacer/>
+									<m:Input id="idTxtMsg" value="" type="Text" placeholder="Buscar..." liveChange=".handleLiveChange('id_CA_TableMsg',$event)"
+												required="false" width="150px" editable="true"/>
+									<Button class="clsBotonEst1" text="Añadir" type="Emphasized" icon="sap-icon://sys-add" press="onAddMensaje"/>
+								</m:OverflowToolbar>
+							</table:extension>
+							<table:columns>
+								<table:Column hAlign="Center" minWidth="100px" autoResizable='true' resizable="true" sortProperty="ID_MENSAJE" filterProperty="ID_MENSAJE">
+									<m:Text text="ID mensaje"/>
+									<table:template>
+										<m:Label text="{oModel>ID_MENSAJE}"/>
+									</table:template>
+								</table:Column>
+								<table:Column hAlign="Center" minWidth="200px" resizable="true">
+									<m:Text text="Descripción"/>
+									<table:template>
+										<m:Label text="{oModel>DESCRIPCION}"/>
+									</table:template>
+								</table:Column>
+								<table:Column hAlign="Center" minWidth="200px" resizable="true">
+									<m:Text text="Nombre"/>
+									<table:template>
+										<m:Label text="{oModel>MENSAJE}"/>
+									</table:template>
+								</table:Column>
+								<table:Column hAlign="Center" minWidth="100px" resizable="true">
+									<m:Text text="Acción"/>
+									<table:template>
+										<HBox alignContent="Center" alignItems="Center" justifyContent="Center">
+											<Button class="sapUiTinyMarginEnd" tooltip="Editar" icon="sap-icon://edit" type="Success" press="onEditMensaje"/>
+											<Button tooltip="Eliminar" icon="sap-icon://delete" type="Negative" press="onDelConfMensaje"/>
+										</HBox>
+									</table:template>
+								</table:Column>
+							</table:columns>
+						</table:Table>
+					</IconTabFilter>
+					<IconTabSeparator icon=""/>
+					<IconTabFilter key="parametro" icon="sap-icon://bullet-text" text="Parámetros" iconColor="Positive">
+						<table:Table id="id_CA_TableParam" selectionMode="None" sort="sortDeliveryDate" rows="{oModel>/DM_PARAMETROS}" visibleRowCount="10"
+							showNoData="No se hallaron registros." >
+							<table:noData>
+								<m:Link class="sapUiMediumMargin" text="No se hallaron registros."/>
+							</table:noData>
+							<table:extension>
+								<m:OverflowToolbar style="Clear">
+									<core:Icon src="sap-icon://bullet-text" size="1.25rem"/>
+									<m:Title id="idTblParam_title" text="Parámetros"/>
+									<m:ToolbarSpacer/>
+									<m:Input id="idTxtParam" value="" type="Text" placeholder="Buscar..." liveChange=".handleLiveChange('id_CA_TableParam',$event)"
+												required="false" width="150px" editable="true"/>
+									<Button class="clsBotonEst1" text="Añadir" type="Emphasized" icon="sap-icon://sys-add" press="onAddParametro"/>
+								</m:OverflowToolbar>
+							</table:extension>
+							<table:columns>
+								<table:Column hAlign="Center" minWidth="100px" autoResizable='true' resizable="true" sortProperty="ID_PARAMETRO" filterProperty="ID_PARAMETRO">
+									<m:Text text="ID parámetro"/>
+									<table:template>
+										<m:Label text="{oModel>ID_PARAMETRO}"/>
+									</table:template>
+								</table:Column>
+								<table:Column hAlign="Center" minWidth="200px" resizable="true">
+									<m:Text text="Descripción"/>
+									<table:template>
+										<m:Label text="{oModel>DESCRIPCION}"/>
+									</table:template>
+								</table:Column>
+								<table:Column hAlign="Center" minWidth="100px" resizable="true">
+									<m:Text text="Valor"/>
+									<table:template>
+										<m:Label text="{oModel>VALOR}"/>
+									</table:template>
+								</table:Column>
+								<table:Column hAlign="Center" minWidth="100px" resizable="true">
+									<m:Text text="Acción"/>
+									<table:template>
+										<HBox alignContent="Center" alignItems="Center" justifyContent="Center">
+											<Button class="sapUiTinyMarginEnd" tooltip="Editar" icon="sap-icon://edit" type="Success" press="onEditParametro"/>
+											<Button tooltip="Eliminar" icon="sap-icon://delete" type="Negative" press="onDelConfParametro"/>
+										</HBox>
+									</table:template>
+								</table:Column>
+							</table:columns>
+						</table:Table>
+					</IconTabFilter>
+					<IconTabSeparator icon=""/>
+					<IconTabFilter key="horarios" icon="sap-icon://fob-watch" text="Horarios" iconColor="Positive">
+						<table:Table id="id_CA_TableHora" selectionMode="None" sort="sortDeliveryDate" rows="{oModel>/DM_HORARIOS}" visibleRowCount="10"
+							showNoData="No se hallaron registros." >
+							<table:noData>
+								<m:Link class="sapUiMediumMargin" text="No se hallaron registros."/>
+							</table:noData>
+							<table:extension>
+								<m:OverflowToolbar style="Clear">
+									<core:Icon src="sap-icon://fob-watch" size="1.25rem"/>
+									<m:Title id="idTblHora_title" text="Horarios"/>
+									<m:ToolbarSpacer/>
+									<m:Input id="idTxtHora" value="" type="Text" placeholder="Buscar..." liveChange=".handleLiveChange('id_CA_TableHora',$event)"
+												required="false" width="150px" editable="true"/>
+									<Button class="clsBotonEst1" text="Añadir" type="Emphasized" icon="sap-icon://sys-add" press="onAddHorario"/>
+								</m:OverflowToolbar>
+							</table:extension>
+							<table:columns>
+								<table:Column hAlign="Center" minWidth="100px" autoResizable='true' resizable="true" sortProperty="ID_REGION" filterProperty="ID_REGION">
+									<m:Text text="Región"/>
+									<table:template>
+										<!--<m:Label text="{ path: 'oModel>ID_REGION', formatter: 'apph.aplicacion.controller.funciones.fnGetRegion' }"/>-->
+										<m:Label text="{oModel>ID_REGION_T}"/>
+									</table:template>
+								</table:Column>
+								<table:Column hAlign="Center" minWidth="100px" resizable="true">
+									<m:Text text="Día de atención"/>
+									<table:template>
+										<m:Label text="{oModel>DIA_ATENCION_T}"/>
+									</table:template>
+								</table:Column>
+								<table:Column hAlign="Center" minWidth="100px" resizable="true">
+									<m:Text text="Día pedido"/>
+									<table:template>
+										<m:Label text="{oModel>DIA_SEMANA_T}"/>
+									</table:template>
+								</table:Column>
+								<table:Column hAlign="Center" minWidth="100px" resizable="true">
+									<m:Text text="Hora máxima"/>
+									<table:template>
+										<m:Label text="{oModel>HORA_MAX_T}"/>
+									</table:template>
+								</table:Column>
+								<table:Column hAlign="Center" minWidth="100px" resizable="true">
+									<m:Text text="Acción"/>
+									<table:template>
+										<HBox alignContent="Center" alignItems="Center" justifyContent="Center">
+											<Button class="sapUiTinyMarginEnd" tooltip="Editar" icon="sap-icon://edit" type="Success" press="onEditHorario"/>
+											<Button tooltip="Eliminar" icon="sap-icon://delete" type="Negative" press="onDelConfHorario"/>
+										</HBox>
+									</table:template>
+								</table:Column>
+							</table:columns>
+						</table:Table>
+					</IconTabFilter>
+					<IconTabSeparator icon=""/>
+					<IconTabFilter key="region" icon="sap-icon://map" text="Región" iconColor="Positive">
+						<table:Table id="id_CA_TableRegion" selectionMode="None" sort="sortDeliveryDate" rows="{oModel>/DM_REGIONES}" visibleRowCount="10"
+							showNoData="No se hallaron registros." >
+							<table:noData>
+								<m:Link class="sapUiMediumMargin" text="No se hallaron registros."/>
+							</table:noData>
+							<table:extension>
+								<m:OverflowToolbar style="Clear">
+									<core:Icon src="sap-icon://fob-watch" size="1.25rem"/>
+									<m:Title id="idTblRegion_title" text="Regiones"/>
+									<m:ToolbarSpacer/>
+									<m:Input id="idTxtRegion" value="" type="Text" placeholder="Buscar..." liveChange=".handleLiveChange('id_CA_TableRegion',$event)"
+												required="false" width="150px" editable="true"/>
+									<Button class="clsBotonEst1" text="Añadir" type="Emphasized" icon="sap-icon://sys-add" press="onAddRegion"/>
+								</m:OverflowToolbar>
+							</table:extension>
+							<table:columns>
+								<table:Column hAlign="Center" minWidth="100px" autoResizable='true' resizable="true" sortProperty="ID_REGION" filterProperty="ID_REGION">
+									<m:Text text="ID región"/>
+									<table:template>
+										<m:Label text="{oModel>ID_REGION}"/>
+									</table:template>
+								</table:Column>
+								<table:Column hAlign="Center" minWidth="100px" resizable="true">
+									<m:Text text="Región"/>
+									<table:template>
+										<m:Label text="{oModel>DESCRIPCION}"/>
+									</table:template>
+								</table:Column>
+								<table:Column hAlign="Center" minWidth="100px" resizable="true">
+									<m:Text text="Acción"/>
+									<table:template>
+										<HBox alignContent="Center" alignItems="Center" justifyContent="Center">
+											<Button class="sapUiTinyMarginEnd" tooltip="Editar" icon="sap-icon://edit" type="Success" press="onEditRegion"/>
+											<Button tooltip="Eliminar" icon="sap-icon://delete" type="Negative" press="onDelConfRegion"/>
+										</HBox>
+									</table:template>
+								</table:Column>
+							</table:columns>
+						</table:Table>
+					</IconTabFilter>
+					<!--<IconTabFilter key="attachments" icon="sap-icon://leads" text="Ejecutivo de venta" iconColor="Neutral" count="3">-->
+					<!--	<Text text="Attachments go here ..."/>-->
+					<!--</IconTabFilter>-->
+					<!--<IconTabFilter key="notes" icon="sap-icon://message-information" text="Mensajes" count="12">-->
+					<!--	<Text text="Notes go here ..."/>-->
+					<!--</IconTabFilter>-->
+					<!--<IconTabSeparator icon=""/>-->
+					<!--<IconTabFilter key="people" icon="sap-icon://indent" text="Parámetros" iconColor="Negative">-->
+					<!--	<Text text="People content goes here ..."/>-->
+					<!--</IconTabFilter>-->
+					<!--<IconTabSeparator icon=""/>-->
+					<!--<IconTabFilter key="people" icon="sap-icon://fob-watch" text="Horarios" iconColor="Negative">-->
+					<!--	<Text text="People content goes here ..."/>-->
+					<!--</IconTabFilter>-->
+					<!--<IconTabSeparator icon=""/>-->
+					<!--<IconTabFilter key="people" icon="sap-icon://map" text="Regiones" iconColor="Negative">-->
+					<!--	<Text text="People content goes here ..."/>-->
+					<!--</IconTabFilter>-->
+				</items>
+			</IconTabBar>
+		</content>
+	</Page>
+</mvc:View>

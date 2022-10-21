@@ -1,0 +1,171 @@
+<mvc:View controllerName="apph.aplicacion.controller.vMain"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns:ux="sap.uxap"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:core="sap.ui.core" 
+    xmlns="sap.m">
+    <!-- <Page id="page" title="{i18n>title}">
+        <content />
+    </Page> -->
+    <!-- <Image id="bg_imagen" src="./images/plantilla.png" /> -->
+	<ux:ObjectPageLayout id="ObjectPageLayout" class="FooterMenu" showFooter="true" 
+        enableLazyLoading="true" upperCaseAnchorBar="false" alwaysShowContentHeader="true">
+		<ux:headerTitle >
+			<ux:ObjectPageHeader >
+				<ux:navigationBar>
+					<Bar class="Cabecera clsCabeceraStyle_1">
+						<contentLeft>
+							<!--<Button id="button" class="clsMenu" icon="sap-icon://menu2" press="onPressMenu" ariaHasPopup="Menu"/>-->
+							<Image src="./images/logo.png" class="Logo clsLogoRedondos" press="pressHome" height="2rem"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title class="classiconoblanco" text="MENÚ PRINCIPAL"></Title>
+						</contentMiddle>
+						<contentRight>
+							<Input id="idM_SelCliente" type="Text" value="" placeholder="Seleccione cliente ..." showValueHelp="true" valueHelpOnly="true"
+								valueHelpRequest=".onValueHelpRequest" class="" width="15rem"/>
+							<Button icon="sap-icon://customer" type="Transparent" press=".onMenuDerecha" ariaHasPopup="Menu">
+								<layoutData>
+									<OverflowToolbarLayoutData priority="NeverOverflow"/>
+								</layoutData>
+							</Button>
+						</contentRight>
+					</Bar>
+				</ux:navigationBar>
+			</ux:ObjectPageHeader>
+		</ux:headerTitle>
+		<ux:sections >
+			<ux:ObjectPageSection id="pageSeccion" class="Tiles" title="GESTIÓN COMERCIAL">
+				<ux:subSections>
+					<ux:ObjectPageSubSection title="" mode="Expanded" >
+						<ux:blocks >
+							<HBox wrap="Wrap"  >
+								<GenericTile id="idM_V1" class="sapUiTinyMargin" header="Consulta de precios" subheader="" press="onPress1">
+									<TileContent unit="" footer="{oModel>/Mensaje_incidencia}">
+										<ImageContent src="sap-icon://lead"/>
+										<!--<NumericContent icon="sap-icon://incident" scale="" value="{oModel>/Cantidad_incidencias}" withMargin="false"-->
+										<!--	valueColor="{oModel>/Estado_incidencia}"/>-->
+									</TileContent>
+									<customData>
+										<core:CustomData key="key" value="Consulta_precio"/>
+									</customData>
+								</GenericTile>
+								<GenericTile id="idM_V2" class="sapUiTinyMargin" header="Solicitar pedido" subheader="" press="navSolicitarPedido">
+									<TileContent unit="" footer="{oModel>/Mensaje_incidencia}">
+										<ImageContent src="sap-icon://request"/>
+										<!--<NumericContent icon="sap-icon://incident" scale="" value="{oModel>/Cantidad_incidencias}" withMargin="false"-->
+										<!--	valueColor="{oModel>/Estado_incidencia}"/>-->
+									</TileContent>
+									<customData>
+										<core:CustomData key="key" value="Solicitar_pedido"/>
+									</customData>
+								</GenericTile>
+								<GenericTile id="idM_V3" class="sapUiTinyMargin" header="Seguimiento de pedido" subheader="" press="navSeguimientoPedido">
+									<TileContent unit="" footer="{oModel>/Mensaje_incidencia}">
+										<ImageContent src="sap-icon://customer-order-entry"/>
+										<!--<NumericContent icon="sap-icon://incident" scale="" value="{oModel>/Cantidad_incidencias}" withMargin="false"-->
+										<!--	valueColor="{oModel>/Estado_incidencia}"/>-->
+									</TileContent>
+									<customData>
+										<core:CustomData key="key" value="Seguimiento_de_pedido"/>
+									</customData>
+								</GenericTile>
+							</HBox>
+						</ux:blocks>
+					</ux:ObjectPageSubSection>
+				</ux:subSections>
+			</ux:ObjectPageSection>
+			<ux:ObjectPageSection class="Tiles" title="GESTIÓN FINANCIERA">
+				<ux:subSections>
+					<ux:ObjectPageSubSection title="" mode="Expanded">
+						<ux:blocks>
+							<HBox wrap="Wrap">
+								<GenericTile id="idM_V4" class="sapUiTinyMargin" header="Gestión de crédito" subheader="" press="onGestionFinanciera">
+									<TileContent unit="" footer="{oModel>/Mensaje_incidencia}" >
+										<ImageContent src="sap-icon://batch-payments"/>
+										<!--<NumericContent icon="sap-icon://incident" scale="" value="{oModel>/Cantidad_incidencias}" withMargin="false"-->
+										<!--	valueColor="{oModel>/Estado_incidencia}"/>-->
+									</TileContent>
+									<customData>
+										<core:CustomData key="key" value="Gestion_de_credito"/>
+									</customData>
+								</GenericTile>
+								<GenericTile id="idM_V5" class="sapUiTinyMargin" header="Estado de cuenta" subheader="" press="navEstadoCuenta">
+									<TileContent unit="" footer="{oModel>/Mensaje_incidencia}">
+										<ImageContent src="sap-icon://status-positive"/>
+										<!--<NumericContent icon="sap-icon://incident" scale="" value="{oModel>/Cantidad_incidencias}" withMargin="false"-->
+										<!--	valueColor="{oModel>/Estado_incidencia}"/>-->
+									</TileContent>
+									<customData>
+										<core:CustomData key="key" value="Estado_de_cuenta"/>
+									</customData>
+								</GenericTile>
+								<GenericTile id="idM_V6" class="sapUiTinyMargin" header="Gestión de facturas" subheader="" press="navFacturaCliente">
+									<TileContent unit="" footer="{oModel>/Mensaje_incidencia}">
+										<ImageContent src="sap-icon://my-sales-order"/>
+										<!--<NumericContent icon="sap-icon://incident" scale="" value="{oModel>/Cantidad_incidencias}" withMargin="false"-->
+										<!--	valueColor="{oModel>/Estado_incidencia}"/>-->
+									</TileContent>
+									<customData>
+										<core:CustomData key="key" value="Gestión_de_facturas"/>
+									</customData>
+								</GenericTile>
+							</HBox>
+						</ux:blocks>
+					</ux:ObjectPageSubSection>
+				</ux:subSections>
+			</ux:ObjectPageSection>
+			<ux:ObjectPageSection class="Tiles" title="GESTIÓN DE RECLAMOS">
+				<ux:subSections>
+					<ux:ObjectPageSubSection title="" mode="Expanded">
+						<ux:blocks>
+							<HBox wrap="Wrap">
+								<GenericTile id="idM_V7" class="sapUiTinyMargin" header="Presentar reclamo" subheader="" press="navPresentarReclamo">
+									<TileContent unit="" footer="{oModel>/Mensaje_incidencia}">
+										<ImageContent src="sap-icon://request"/>
+										<!--<NumericContent icon="sap-icon://incident" scale="" value="{oModel>/Cantidad_incidencias}" withMargin="false"-->
+										<!--	valueColor="{oModel>/Estado_incidencia}"/>-->
+									</TileContent>
+									<customData>
+										<core:CustomData key="key" value="Presentar_reclamo"/>
+									</customData>
+								</GenericTile>
+								<GenericTile id="idM_V8" class="sapUiTinyMargin" header="Seguimiento de reclamo" subheader="" press="navSeguimientoReclamo">
+									<TileContent unit="" footer="{oModel>/Mensaje_incidencia}">
+										<ImageContent src="sap-icon://clinical-tast-tracker"/>
+										<!--<NumericContent icon="sap-icon://incident" scale="" value="{oModel>/Cantidad_incidencias}" withMargin="false"-->
+										<!--	valueColor="{oModel>/Estado_incidencia}"/>-->
+									</TileContent>
+									<customData>
+										<core:CustomData key="key" value="Seguimiento_de_reclamo"/>
+									</customData>
+								</GenericTile>
+								<GenericTile id="idM_V9" class="sapUiTinyMargin" header="Atención de reclamo" subheader="" press="navAtencionReclamo">
+									<TileContent unit="" footer="{oModel>/Mensaje_incidencia}">
+										<ImageContent src="sap-icon://supplier"/>
+										<!--<NumericContent icon="sap-icon://incident" scale="" value="{oModel>/Cantidad_incidencias}" withMargin="false"-->
+										<!--	valueColor="{oModel>/Estado_incidencia}"/>-->
+									</TileContent>
+									<customData>
+										<core:CustomData key="key" value="Atencion_de_reclamo"/>
+									</customData>
+								</GenericTile>
+							</HBox>
+						</ux:blocks>
+					</ux:ObjectPageSubSection>
+				</ux:subSections>
+			</ux:ObjectPageSection>
+		</ux:sections>
+		<ux:footer>
+			<OverflowToolbar class="Footer ">
+				<content>
+					<ToolbarSpacer/>
+					<Label text="Powered by:"/>
+					<Image src="./images/Logotipo.png" height="2rem"/>
+				</content>
+			</OverflowToolbar>
+		</ux:footer>
+	</ux:ObjectPageLayout>
+</mvc:View>

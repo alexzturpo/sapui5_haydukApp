@@ -1,0 +1,204 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:m="sap.m" xmlns:f="sap.f" xmlns:layout="sap.ui.layout"
+	xmlns:uxap="sap.uxap" xmlns:u="sap.ui.unified" xmlns:table="sap.ui.table" xmlns:form="sap.ui.layout.form" xmlns:upload="sap.m.upload"
+	controllerName="apph.aplicacion.controller.Solicitar_pedido" xmlns:html="http://www.w3.org/1999/xhtml">
+	<!-- <Image id="bg_imagen" src="./images/plantilla.png"/> -->
+	<uxap:ObjectPageLayout id="ObjectPageLayout" class="clsPRLayout" alwaysShowContentHeader="true" preserveHeaderStateOnScroll="true"
+		headerContentPinnable="false" upperCaseAnchorBar="false" showFooter="true">
+		<uxap:headerContent>
+			<m:Bar class="Cabecera clsCabeceraStyle_1">
+				<m:contentLeft>
+					<Button id="back" class="" icon="sap-icon://nav-back" press="pressHome"/>
+				</m:contentLeft>
+				<m:contentMiddle>
+					<Title class="classiconoblanco" text="SOLICITAR PEDIDO"></Title>
+				</m:contentMiddle>
+				<m:contentRight>
+					<Button icon="sap-icon://customer" type="Transparent" press=".onMenuDerecha">
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</layoutData>
+					</Button>
+				</m:contentRight>
+			</m:Bar>
+		</uxap:headerContent>
+		<uxap:sections>
+			<uxap:ObjectPageSection id="pageSeccion">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection>
+						<uxap:blocks>
+							<VBox class="clsPR_Contenido clsPR_VBox" width="100%">
+								<VBox id="clsPR_ocultar" class="clsPadding_5" width="100%">
+									<form:SimpleForm id="SP_PedidoParam" editable="true" layout="ColumnLayout" title="Datos pedidos">
+										<form:content>
+											<Label text="Destinatario" required="true"/>
+											<Input id="idParDestinatario" value="{oModel>/DATOS_USUARIO/NOMBRE1}" enabled="false"></Input>
+											<!--<Label text="Ejecutivo de venta" required="true"/>-->
+											<!--<Input id="idParEjecutivo" value="{oModel>/EJECUTIVO/NOMBRE1}" enabled="false"></Input>-->
+											<Label text="Fecha de entrega" required="true"/>
+											<DatePicker id="idParFecha" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" width="100%" required="true" placeholder="DD/MM/AAAA"
+												change="onConfBuscarPedido"/>
+											<Label text="Orden de compra"/>
+											<Input id="idParOC" liveChange="onValidateOC" maxLength="20"></Input>
+											<Label text="Recojo en centro de distribución"/>
+											<CheckBox id="idParRecojo" text="" selected="false"/>
+										</form:content>
+									</form:SimpleForm>
+									<VBox alignContent="End" alignItems="End" justifyContent="End" height="3rem">
+										<Button icon="sap-icon://upload" class="clsBotonEst1"  text="Carga masiva" type="Transparent" press="onCargaMasivaConf"/>
+									</VBox>
+									<VBox id="VBoxProdSelec">
+										<form:SimpleForm id="SP_PedidoInsert" class="sapUiSmallMarginBottom" editable="true" layout="ColumnLayout" title="Productos">
+											<form:content></form:content>
+										</form:SimpleForm>
+										<layout:Grid defaultSpan="XL1 L1 M1 S1" class="sapUiSmallMarginBottom sapUiSmallMarginTop">
+											<VBox height="3rem" justifyContent="Center" alignContent="Center">
+												<Label text="Producto" required="true"/>
+											</VBox>
+											<VBox height="3rem" justifyContent="Center" alignContent="Center">
+												<ComboBox id="id_PR_TipoReclamo" width="100%" items="{oModel>/PEDIDO_PRODUCTOS}" change="onSelProducto">
+													<core:Item key="{oModel>MATNR}" text="{oModel>MAKTX_T}"/>
+												</ComboBox>
+												<layoutData>
+													<layout:GridData span="XL6 L6 M6 S6"/>
+												</layoutData>
+											</VBox>
+											<VBox height="3rem" justifyContent="Center" alignContent="Center">
+												<Label text="Cantidad" labelFor="idICantidad"/>
+											</VBox>
+											<VBox height="3rem" justifyContent="Center" alignContent="Center">
+												<Input id="idICantidad" showSuggestion="false" value="" liveChange="onCalcularPrecio" required="true"></Input>
+											</VBox>
+											<VBox height="3rem" justifyContent="Center" alignContent="Center">
+												<Label text="Unidad de medida"/>
+											</VBox>
+											<VBox height="3rem" justifyContent="Center" alignContent="Center">
+												<Input id="idIMedida" showSuggestion="false" enabled="false" value=""></Input>
+											</VBox>
+											<VBox height="3rem" justifyContent="Center" alignContent="Center" visible="false">
+												<Label text="Importe"/>
+											</VBox>
+											<VBox height="3rem" justifyContent="Center" alignContent="Center" visible="false">
+												<Input id="idIImporte" showSuggestion="false" enabled="false" value=""></Input>
+												<!--<layoutData>-->
+												<!--	<layout:GridData span="XL2 L2 M2 S2"/>-->
+												<!--</layoutData>-->
+											</VBox>
+											<VBox height="3rem" justifyContent="Center" alignContent="Center" visible="false">
+												<Input id="idIMoneda" value="{oModel>/SelProducto/KONWA}" showSuggestion="false" enabled="false"></Input>
+											</VBox>
+											<VBox height="3rem" justifyContent="Center" alignContent="Center">
+												<Button id="btnAgregar" class="clsBotonEst1" text="Agregar" type="Emphasized" press="onAgregarProducto"/>
+											</VBox>
+										</layout:Grid>
+										<!--<OverflowToolbar id="otb1" class="clsToolbar">-->
+										<!--	<ToolbarSpacer/>-->
+										<!--</OverflowToolbar>-->
+										<Label id="idLblInfo" class="sapUiSmallMarginTop sapUiSmallMarginBottom" text=""></Label>
+										<layout:Grid defaultSpan="XL10 L10 M10 S10" defaultIndent="XL1 L1 M1 S1">
+											<VBox>
+												<table:Table id="id_EC_Detalle" class="clsEC_Contenido clsTblStyle1" selectionMode="None" rows="{oModel>/PEDIDOS_SELECCIONADOS}"
+													ariaLabelledBy="title">
+													<table:columns>
+														<table:Column hAlign="Center" resizable="true" minWidth="100px" sortProperty="VGBEL" filterProperty="VGBEL">
+															<m:Text text="Código"/>
+															<table:template>
+																<m:Label text="{oModel>MATNR}"/>
+															</table:template>
+														</table:Column>
+														<table:Column hAlign="Center" resizable="true" minWidth="250px" sortProperty="VGBEL" filterProperty="VGBEL">
+															<m:Text text="Producto"/>
+															<table:template>
+																<m:Label text="{oModel>MAKTX}"/>
+															</table:template>
+														</table:Column>
+														<table:Column hAlign="Center" resizable="true" minWidth="50px" sortProperty="BSTNK" filterProperty="BSTNK">
+															<m:Text text="Volumen"/>
+															<table:template>
+																<m:Label text="{oModel>VOLUMEN}"/>
+															</table:template>
+														</table:Column>
+														<table:Column hAlign="Center" resizable="true" minWidth="50px" sortProperty="WADAT_IST" filterProperty="WADAT_IST">
+															<m:Text text="UMV"/>
+															<table:template>
+																<m:Label text="{oModel>KMEIN}"/>
+															</table:template>
+														</table:Column>
+														<table:Column visible="false" hAlign="Center" resizable="true" minWidth="150px" sortProperty="ERDAT" filterProperty="ERDAT">
+															<m:Text text="Importe"/>
+															<table:template>
+																<m:Label text="{oModel>PRECIO_TOT}"/>
+															</table:template>
+														</table:Column>
+														<table:Column visible="false" hAlign="Center" resizable="true" minWidth="50px" sortProperty="ERDAT" filterProperty="ERDAT">
+															<m:Text text="Moneda"/>
+															<table:template>
+																<m:Label text="{oModel>KONWA}"/>
+															</table:template>
+														</table:Column>
+														<table:Column hAlign="Center" resizable="true" minWidth="50px">
+															<m:Text text="Acción"/>
+															<table:template>
+																<!--<m:Label text="{oModel>KONWA}"/>-->
+																<HBox alignContent="Center" alignItems="Center" justifyContent="Center">
+																	<Button tooltip="Eliminar" icon="sap-icon://delete" type="Negative" press="onDelProducto"/>
+																</HBox>
+															</table:template>
+														</table:Column>
+														<!--<table:Column hAlign="Center" resizable="true" minWidth="30px" resizable="true">-->
+														<!--	<m:Text text="Acción"/>-->
+														<!--	<table:template>-->
+														<!--	</table:template>-->
+														<!--</table:Column>-->
+													</table:columns>
+												</table:Table>
+											</VBox>
+										</layout:Grid>
+										<layout:Grid id="GridTotales" defaultSpan="XL4 L4 M4 S8" defaultIndent="XL8 L8 M8 S4" visible="false">
+											<!--<Button class="clsBotonEst1" text="Agregar" type="Emphasized" press="onAgregarProducto"/>-->
+											<VBox>
+												<layout:Grid defaultSpan="XL5 L5 M5 S5">
+													<VBox height="3rem" justifyContent="Center" alignContent="Center">
+														<Label text="Total sin IGV"></Label>
+													</VBox>
+													<VBox height="3rem">
+														<Input id="InTOT" editable="false"></Input>
+													</VBox>
+												</layout:Grid>
+												<layout:Grid defaultSpan="XL5 L5 M5 S5">
+													<VBox height="3rem" justifyContent="Center" alignContent="Center">
+														<Label text="IGV"></Label>
+													</VBox>
+													<VBox height="3rem">
+														<Input id="InIGV" editable="false"></Input>
+													</VBox>
+												</layout:Grid>
+												<layout:Grid defaultSpan="XL5 L5 M5 S5">
+													<VBox height="3rem" justifyContent="Center" alignContent="Center">
+														<Label text="Total con IGV"></Label>
+													</VBox>
+													<VBox height="3rem">
+														<Input id="InTOTIGV" editable="false"></Input>
+													</VBox>
+												</layout:Grid>
+											</VBox>
+										</layout:Grid>
+									</VBox>
+								</VBox>
+							</VBox>
+							<!--</content>-->
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+		</uxap:sections>
+		<uxap:footer>
+			<OverflowToolbar class="">
+				<content>
+					<ToolbarSpacer/>
+					<Button id="btnGuardar" class="clsBotonEst1" text="Guardar" type="Emphasized" press="onGuardarPedidoConf"/>
+					<Button class="clsBotonEst1" text="Cancelar" type="Emphasized" press="pressHome"/>
+				</content>
+			</OverflowToolbar>
+		</uxap:footer>
+	</uxap:ObjectPageLayout>
+</mvc:View>

@@ -1,0 +1,312 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:m="sap.m" xmlns:f="sap.f" xmlns:layout="sap.ui.layout"
+	xmlns:table="sap.ui.table" xmlns:form="sap.ui.layout.form" controllerName="apph.aplicacion.controller.Factura_cliente"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<!-- <Image id="bg_imagen" src="./images/plantilla.png"/> -->
+	<Page class="clsEstadoCuenta" showSubHeader="true">
+		<m:customHeader>
+			<m:Bar class="Cabecera clsCabeceraStyle_1">
+				<m:contentLeft>
+					<Button id="back" class="" icon="sap-icon://nav-back" press="pressHome"/>
+					<!--<Button id="button" class="clsMenu" icon="sap-icon://menu2" press="onPressMenu"/>-->
+					<!--<m:Image src="./images/logo.png" class="Logo clsLogoRedondos" press="pressHome" height="3rem"/>-->
+				</m:contentLeft>
+				<m:contentMiddle>
+					<Title class="classiconoblanco" text="GESTIÓN DE FACTURAS"></Title>
+				</m:contentMiddle>
+				<m:contentRight>
+					<Button icon="sap-icon://customer" type="Transparent" press=".onMenuDerecha">
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</layoutData>
+					</Button>
+				</m:contentRight>
+			</m:Bar>
+		</m:customHeader>
+		<content>
+			<VBox class="clsFechaConsulta clsEC_MsgStrip clsEC_Contenido" alignContent="End" alignItems="End" justifyContent="End">
+				<ObjectStatus id="id_Datepicker3" text="" inverted="true" state="Success"/>
+			</VBox>
+			<VBox id="idEC_Contenido" class="clsEC_Contenido">
+				<layout:VerticalLayout width="100%" class="clsCabeceraFiltro">
+					<layout:Grid defaultSpan="XL2 L2 M6 S12">
+						<Toolbar id="toolbar1">
+							<Label text="Desde">
+								<layoutData>
+									<ToolbarLayoutData shrinkable="false"/>
+								</layoutData>
+							</Label>
+							<ToolbarSpacer/>
+							<DatePicker class="clsBtnFiltro clsFechaDisAnio" id="id_Datepicker1" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" required="true"
+								placeholder="DD/MM/AAAA" change="fnValidarFechaFiltro">
+								<layoutData>
+									<ToolbarLayoutData shrinkable="true"/>
+								</layoutData>
+							</DatePicker>
+						</Toolbar>
+						<Toolbar class="" id="toolbar2">
+							<Label text="Hasta">
+								<layoutData>
+									<ToolbarLayoutData shrinkable="false"/>
+								</layoutData>
+							</Label>
+							<ToolbarSpacer/>
+							<DatePicker class="clsBtnFiltro" id="id_Datepicker2" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" required="true"
+								placeholder="DD/MM/AAAA" change="fnValidarFechaFiltro">
+								<layoutData>
+									<ToolbarLayoutData shrinkable="true"/>
+								</layoutData>
+							</DatePicker>
+						</Toolbar>
+						<Toolbar class="" id="toolbar3">
+							<Button class="clsBtn_Buscar  clsBtnStyle2" text="Buscar" press="onBuscarEstCuenta">
+								<layoutData>
+									<ToolbarLayoutData shrinkable="false"/>
+								</layoutData>
+							</Button>
+						</Toolbar>
+					</layout:Grid>
+				</layout:VerticalLayout>
+				<VBox class="sapUiTinyMarginBegin " alignContent="Start" alignItems="Start" justifyContent="Start">
+					<MessageStrip id="id_ValidacionFecha" text="Error with default icon and close button:" type="Error" showIcon="true" visible="false"
+						showCloseButton="true" class="sapUiMediumMarginBottom "></MessageStrip>
+				</VBox>
+				<VBox class="clsTitulo" id="idEC_Titulo" alignContent="Center" alignItems="Center" justifyContent="Center">
+				</VBox>
+				<layout:VerticalLayout width="100%" id="idEC_Info">
+				</layout:VerticalLayout>
+				<VBox class="clsTituloHorizontal" id="idEC_Titulo2" alignContent="Start" alignItems="Center" justifyContent="Start">
+					<Title wrapping="true" id="idEC_Titulo3" level="H1" text="Movimiento del cliente del 01/01/2019 al 31/12/2021"/>
+				</VBox>
+				<!--<table:Table id="id_EC_Detalle" class="clsTblStyle1" selectionMode="None"  rows="{oModel>/ESTADO_FACT_CLIENTE}" columnSelect="onColumnSelect"
+				cellContextmenu="onProductIdCellContextMenu" ariaLabelledBy="title">
+					<table:extension>
+						<m:OverflowToolbar style="Clear">
+							<m:ToolbarSpacer/>
+							<Button class="clsBotonEst1" icon="sap-icon://excel-attachment" type="Emphasized" press="fnDescargar"/>
+						</m:OverflowToolbar>
+					</table:extension>
+					<table:columns>
+						<table:Column hAlign="Center" autoResizable="true" resizable="true"  minWidth="120px"  sortProperty="TAXNUM" filterProperty="TAXNUM">
+							<m:Text text="RUC Cliente"/>
+							<table:template>
+								<m:Label text="{oModel>TAXNUM}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center"  minWidth="250px" sortProperty="NAME_BP" filterProperty="NAME_BP">
+							<m:Text text="Nombre"/>
+							<table:template>
+								<m:Label text="{oModel>NAME_BP}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="150px" autoResizable="true" sortProperty="KUNRG" filterProperty="KUNRG">
+							<m:Text text="Responsable de pago"/>
+							<table:template>
+								<m:Label text="{oModel>KUNRG}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="100px" autoResizable="true" sortProperty="VBELN_VF" filterProperty="VBELN_VF">
+							<m:Text text="Factura"/>
+							<table:template>
+								<m:Label text="{oModel>VBELN_VF}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="90px" autoResizable="true" sortProperty="FKART" filterProperty="FKART">
+							<m:Text text="Clase de factura"/>
+							<table:template>
+								<m:Label text="{oModel>FKART}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="100px" autoResizable="true" sortProperty="BEZEI_F" filterProperty="BEZEI_F">
+							<m:Text text="Denominación"/>
+							<table:template>
+								<m:Label text="{oModel>BEZEI_F}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="150px" autoResizable="true" sortProperty="XBLNR_VF" filterProperty="XBLNR_VF">
+							<m:Text text="N° Doc. Referencia"/>
+							<table:template>
+								<m:Label text="{oModel>XBLNR_VF}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="100px" autoResizable="true" sortProperty="FKDAT" filterProperty="FKDAT">
+							<m:Text text="Fecha factura"/>
+							<table:template>
+								<m:Label text="{oModel>FKDAT}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="150px" autoResizable="true" sortProperty="FKSTO" filterProperty="FKSTO">
+							<m:Text text="Doc. fact. anulado"/>
+							<table:template>
+								<m:Label text="{oModel>FKSTO}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="150px" autoResizable="true" sortProperty="SFAKN" filterProperty="SFAKN">
+							<m:Text text="N° doc. fact. anulado"/>
+							<table:template>
+								<m:Label text="{oModel>SFAKN}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Right" minWidth="100px" autoResizable="true" sortProperty="NETWR_PEN" filterProperty="NETWR_PEN">
+							<m:Text text="Valor neto"/>
+							<table:template>
+								<m:Label text="{oModel>NETWR_PEN}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Right" minWidth="100px" autoResizable="true" sortProperty="MWSBP_PEN" filterProperty="MWSBP_PEN">
+							<m:Text text="Importe del impuesto"/>
+							<table:template>
+								<m:Label text="{oModel>MWSBP_PEN}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="100px" autoResizable="true" sortProperty="WAERS_PEN" filterProperty="WAERS_PEN">
+							<m:Text text="Moneda"/>
+							<table:template>
+								<m:Label text="{oModel>WAERS_PEN}"/>
+							</table:template>
+						</table:Column>
+							<table:Column hAlign="Right" minWidth="100px" autoResizable="true" sortProperty="PRICE_TOT_PEN" filterProperty="PRICE_TOT_PEN">
+							<m:Text text="Precio total"/>
+							<table:template>
+								<m:Label text="{oModel>PRICE_TOT_PEN}"/>
+							</table:template>
+						</table:Column>
+					</table:columns>
+				</table:Table>-->
+				<table:Table id="id_EC_Detalle" class="clsTblStyle1" selectionMode="None" rows="{oModel>/ESTADO_FACT_CLIENTE}" columnSelect="onColumnSelect"
+					cellContextmenu="onProductIdCellContextMenu" ariaLabelledBy="title">
+					<table:extension>
+						<m:OverflowToolbar style="Clear">
+							<m:ToolbarSpacer/>
+							<Button class="clsBotonEst1" icon="sap-icon://excel-attachment" type="Emphasized" press="fnDescargar"/>
+						</m:OverflowToolbar>
+					</table:extension>
+					<table:columns>
+						<table:Column hAlign="Center" minWidth="80px" autoResizable="true">
+							<m:Text text="PDF"/>
+							<table:template>
+								<Image src="./images/icon_pdf.png" press="funObtenerReportePDF"/>
+								<!--<Link text="Descargar" press="funObtenerReportePDF"/>-->
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="80px" autoResizable="true">
+							<m:Text text="XML"/>
+							<table:template>
+								<Image src="./images/icon_xml.png" press="funObtenerReporteXML"/>
+								<!--<Link text="Descargar" press="funObtenerReporteXML"/>-->
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="80px" autoResizable="true">
+							<m:Text text="CDR"/>
+							<table:template>
+								<Image src="./images/icon_pdf.png" press="funObtenerReporteCDR"/>
+								<!--<Link text="Descargar" press="funObtenerReporteCDR"/>-->
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" autoResizable="true" resizable="true" minWidth="120px" sortProperty="VBELN_VA" filterProperty="VBELN_VA">
+							<m:Text text="N° Pedido"/>
+							<table:template>
+								<m:Label text="{oModel>VBELN_VA}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="150px" autoResizable="true" sortProperty="XBLNR_VF" filterProperty="XBLNR_VF">
+							<m:Text text="N° Doc. Referencia"/>
+							<table:template>
+								<m:Label text="{oModel>XBLNR_VF}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="150px" autoResizable="true" sortProperty="XBLNR_VL" filterProperty="XBLNR_VL">
+							<m:Text text="N° Guía"/>
+							<table:template>
+								<m:Label text="{oModel>XBLNR_VL}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" autoResizable="true" resizable="true" minWidth="120px" sortProperty="TAXNUM" filterProperty="TAXNUM">
+							<m:Text text="RUC"/>
+							<table:template>
+								<m:Label text="{oModel>TAXNUM}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="250px" sortProperty="NAME_BP" filterProperty="NAME_BP">
+							<m:Text text="Razón social"/>
+							<table:template>
+								<m:Label text="{oModel>NAME_BP}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="100px" autoResizable="true" sortProperty="FKDAT" filterProperty="FKDAT">
+							<m:Text text="Fecha emisión"/>
+							<table:template>
+								<m:Label text="{oModel>FKDAT}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Right" minWidth="100px" autoResizable="true" sortProperty="NETWR_PEN" filterProperty="NETWR_PEN">
+							<m:Text text="Valor neto"/>
+							<table:template>
+								<m:Label text="{oModel>NETWR_PEN}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Right" minWidth="100px" autoResizable="true" sortProperty="MWSBP_PEN" filterProperty="MWSBP_PEN">
+							<m:Text text="Importe del impuesto"/>
+							<table:template>
+								<m:Label text="{oModel>MWSBP_PEN}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="100px" autoResizable="true" sortProperty="ICBPER_PEN" filterProperty="ICBPER_PEN">
+							<m:Text text="ICBPER"/>
+							<table:template>
+								<m:Label text="{oModel>ICBPER_PEN}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Right" minWidth="100px" autoResizable="true" sortProperty="PRICE_TOT_PEN" filterProperty="PRICE_TOT_PEN">
+							<m:Text text="Precio total"/>
+							<table:template>
+								<m:Label text="{oModel>PRICE_TOT_PEN}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="150px" autoResizable="true" sortProperty="KUNRG" filterProperty="KUNRG">
+							<m:Text text="ID Cliente SAP"/>
+							<table:template>
+								<m:Label text="{oModel>KUNRG}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="100px" autoResizable="true" sortProperty="VBELN_VF" filterProperty="VBELN_VF">
+							<m:Text text="Código Factura SAP"/>
+							<table:template>
+								<m:Label text="{oModel>VBELN_VF}"/>
+							</table:template>
+						</table:Column>
+						<!--<table:Column hAlign="Center" minWidth="90px" autoResizable="true" sortProperty="FKART" filterProperty="FKART">
+							<m:Text text="Clase de factura"/>
+							<table:template>
+								<m:Label text="{oModel>FKART}"/>
+							</table:template>
+						</table:Column>-->
+						<table:Column hAlign="Center" minWidth="100px" autoResizable="true" sortProperty="BEZEI_F" filterProperty="BEZEI_F">
+							<m:Text text="Denominación de documento"/>
+							<table:template>
+								<m:Label text="{oModel>BEZEI_F}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="150px" autoResizable="true" sortProperty="FKSTO" filterProperty="FKSTO">
+							<m:Text text="Doc. fact. anulado"/>
+							<table:template>
+								<m:Label text="{oModel>FKSTO}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="150px" autoResizable="true" sortProperty="SFAKN" filterProperty="SFAKN">
+							<m:Text text="N° doc. fact. anulado"/>
+							<table:template>
+								<m:Label text="{oModel>SFAKN}"/>
+							</table:template>
+						</table:Column>
+						<!--<table:Column hAlign="Center" autoResizable="true" resizable="true" minWidth="120px" sortProperty="VBELN_VA" filterProperty="VBELN_VA">
+							<m:Text text="N° Pedido"/>
+							<table:template>
+								<m:Label text="{oModel>VBELN_VA}"/>
+							</table:template>
+						</table:Column>-->
+					</table:columns>
+				</table:Table>
+			</VBox>
+		</content>
+	</Page>
+</mvc:View>

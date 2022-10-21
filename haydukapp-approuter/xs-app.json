@@ -1,0 +1,24 @@
+{
+    "welcomeFile": "/index.html",
+    "authenticationMethod": "route",
+    "routes": [
+      {
+        "source": "^/resources/(.*)$",
+        "target": "/apphaplicacion/resources/$1",
+        "authenticationType": "none",
+        "destination": "ui5"
+      },
+      {
+        "source": "^/test-resources/(.*)$",
+        "target": "/apphaplicacion/test-resources/$1",
+        "authenticationType": "none",
+        "destination": "ui5"
+      },
+      {
+        "source": "^(.*)$",
+        "target": "/apphaplicacion/$1",
+        "service": "html5-apps-repo-rt",
+        "authenticationType": "xsuaa"
+      }
+    ]
+  }

@@ -1,0 +1,9 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.f" height="100%" displayBlock="true" controllerName="apph.aplicacion.controller.FlexibleColumnLayout">
+	<FlexibleColumnLayout
+		autoFocus="false"
+		id="fcl"
+		stateChange="onStateChanged"
+		restoreFocusOnBackNavigation="true"
+		layout="{/layout}"
+		backgroundDesign="Translucent"/>
+</mvc:View>

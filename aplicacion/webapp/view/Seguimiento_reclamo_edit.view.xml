@@ -1,0 +1,179 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:m="sap.m" xmlns:f="sap.f" xmlns:layout="sap.ui.layout"
+	xmlns:uxap="sap.uxap" xmlns:u="sap.ui.unified" xmlns:table="sap.ui.table" xmlns:form="sap.ui.layout.form" xmlns:upload="sap.m.upload"
+	controllerName="apph.aplicacion.controller.Seguimiento_reclamo_edit" xmlns:html="http://www.w3.org/1999/xhtml">
+	<!-- <Image id="bg_imagen" src="./images/plantilla.png"/> -->
+	<uxap:ObjectPageLayout id="ObjectPageLayout" class="clsPRLayout" alwaysShowContentHeader="true" preserveHeaderStateOnScroll="true"
+		headerContentPinnable="true" upperCaseAnchorBar="false" showFooter="true">
+		<!--<uxap:headerTitle>-->
+		<!--	<uxap:ObjectPageDynamicHeaderTitle>-->
+		<!--		<uxap:expandedHeading>-->
+		<!--			<m:Title text="{products>Name}" wrapping="true" class="sapUiSmallMarginEnd"/>-->
+		<!--		</uxap:expandedHeading>-->
+		<!--		<uxap:snappedHeading>-->
+		<!--			<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">-->
+		<!--				<m:FlexBox wrap="NoWrap" fitContainer="true" alignItems="Center" class="sapUiTinyMarginEnd">-->
+		<!--					<f:Avatar src="../../../../../../../{products>ProductPicUrl}" displaySize="S" displayShape="Square"/>-->
+		<!--					<m:Title text="{products>Name}" wrapping="true" class="sapUiTinyMarginEnd"/>-->
+		<!--				</m:FlexBox>-->
+		<!--			</m:FlexBox>-->
+		<!--		</uxap:snappedHeading>-->
+		<!--	</uxap:ObjectPageDynamicHeaderTitle>-->
+		<!--</uxap:headerTitle>-->
+		<uxap:headerContent>
+			<!--<Page class="clsPresentarReclamo" showHeader="true" showSubHeader="true">-->
+			<!--<m:customHeader>-->
+			<m:Bar class="Cabecera clsCabeceraStyle_1">
+				<m:contentLeft>
+					<Button id="back" class="" icon="sap-icon://nav-back" press="onSeguimientoReclamo"/>
+				</m:contentLeft>
+				<m:contentMiddle>
+					<Title id="idNroReclamo" class="classiconoblanco" text="PRESENTAR RECLAMO"></Title>
+				</m:contentMiddle>
+				<m:contentRight>
+					<Button icon="sap-icon://customer" type="Transparent" press=".onMenuDerecha">
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</layoutData>
+					</Button>
+				</m:contentRight>
+			</m:Bar>
+			<VBox width="100%" class="clsBGBlanco">
+				<layout:Grid defaultSpan="XL3 L4 M6 S12" class="sapUiSmallMarginTop">
+					<form:SimpleForm id="SimpleFormChangeColumn_oneGroup" editable="true" layout="ColumnLayout">
+						<form:content>
+							<Label text="Guía de remisión"/>
+							<Input id="id_GuiaRemision" maxLength="16" required="true" enabled="false"/>
+							<!--<Button class="clsBotonEst1" text="Confirmar" type="Emphasized" press="onBuscarGuia"></Button>-->
+							<!--<Label text="Hasta"/>-->
+							<!--<DatePicker id="id_Datepicker2" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" required="true" placeholder="DD/MM/AAAA"-->
+							<!--	change="fnValidarFechaFiltro"/>-->
+						</form:content>
+					</form:SimpleForm>
+				</layout:Grid>
+				<VBox class="clsTituloHorizontal" id="idEC_Titulo2" alignContent="Start" alignItems="Center" justifyContent="Start">
+					<Title id="idEC_Titulo3" level="H2" text=""/>
+				</VBox>
+			</VBox>
+			<!--</m:customHeader>-->
+		</uxap:headerContent>
+		<!--<headerContent>-->
+		<!--</headerContent>-->
+		<!--<content>-->
+		<uxap:sections>
+			<uxap:ObjectPageSection>
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection>
+						<uxap:blocks>
+							<VBox class="clsPR_Contenido clsPR_VBox" width="100%">
+								<VBox id="clsPR_ocultar" class="clsPadding_5" width="100%">
+									<layout:Grid defaultSpan="XL6 L6 M8 S12" defaultIndent="XL3 L3 M2 ">
+										<table:Table id="id_EC_Detalle" class="clsEC_Contenido clsTblStyle1" selectionMode="None" rows="{oModel>/GUIA_REMISION_DET}"
+											ariaLabelledBy="title">
+											<table:columns>
+												<table:Column hAlign="Center" resizable="true" minWidth="150px" sortProperty="VGBEL" filterProperty="VGBEL">
+													<m:Text text="Nro. de pedido"/>
+													<table:template>
+														<m:Label text="{oModel>VGBEL}"/>
+													</table:template>
+												</table:Column>
+												<table:Column hAlign="Center" resizable="true" minWidth="150px" sortProperty="BSTNK" filterProperty="BSTNK">
+													<m:Text text="Referencia"/>
+													<table:template>
+														<m:Label text="{oModel>BSTNK}"/>
+													</table:template>
+												</table:Column>
+												<table:Column hAlign="Center" resizable="true" minWidth="100px" sortProperty="WADAT_IST" filterProperty="WADAT_IST">
+													<m:Text text="Fecha de entrega"/>
+													<table:template>
+														<m:Label text="{oModel>WADAT_IST}"/>
+													</table:template>
+												</table:Column>
+												<table:Column hAlign="Center" resizable="true" minWidth="100px" sortProperty="ERDAT" filterProperty="ERDAT">
+													<m:Text text="Fecha de registro"/>
+													<table:template>
+														<m:Label text="{oModel>ERDAT}"/>
+													</table:template>
+												</table:Column>
+												<table:Column hAlign="Center" resizable="true" minWidth="100px" sortProperty="NETWR" filterProperty="NETWR">
+													<m:Text text="Importe sin IGV"/>
+													<table:template>
+														<m:Label text="{oModel>IMPORTE_T}"/>
+													</table:template>
+												</table:Column>
+											</table:columns>
+										</table:Table>
+									</layout:Grid>
+									<form:SimpleForm id="PR_Parametros" editable="true" layout="ColumnLayout" title="Datos de reclamo">
+										<form:content>
+											<Label text="Tipo de reclamo" required="true"/>
+											<Select id="id_PR_TipoReclamo" forceSelection="true" width="100%" selectedKey="{oModel>/RECLAMO_CAB/TIPO}" items="{oModel>/DM_TIPO_RECLAMO}"
+												change="validInputs">
+												<core:Item key="{oModel>TIPO}" text="{oModel>DESCRIPCION}"/>
+											</Select>
+											<Label text="Ejec. de venta" required="true"/>
+											<Select id="id_PR_EjecVenta" forceSelection="true" width="100%" enabled="false" editable="false" selectedKey="{oModel>/RECLAMO_CAB/ID_EJECUTIVO}"
+												items="{oModel>/DM_EJEC_VENTAS}" change="validInputs">
+												<core:Item key="{oModel>DNI}" text="{oModel>NOMBRE}"/>
+											</Select>
+											<Label text="Comentarios"/>
+											<TextArea id="textAreaWithBinding2" value="{oModel>/RECLAMO_CAB/COMENTARIO}" showExceededText="true" maxLength="200" width="100%"
+												valueState="{= ${/value}.length > 200 ? 'Warning' : 'None' }" valueLiveUpdate="false" liveChange="handleLiveChange"/>
+										</form:content>
+									</form:SimpleForm>
+									<form:SimpleForm id="PR_Parametros2" editable="true" title="Evidencias" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4"
+										labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1"
+										columnsL="1" columnsM="1" singleContainerFullSize="false" maxContainerCols="8">
+										<form:content>
+											<!--<u:FileUploader class="clsBotonEst1" id="fileUploader" icon="sap-icon://upload" buttonOnly="true" buttonText="Agregar evidencia"-->
+											<!--	name="myFileUpload" tooltip="PDF, PNG, JPG" change=".onUploadImage" multiple="true"/>-->
+											<upload:UploadSet class="clsUploadStyle1 clsUplItem" id="UploadSet" instantUpload="false" showIcons="true" uploadEnabled="true"
+												terminationEnabled="true" fileTypes="txt,doc,png" maxFileNameLength="30" afterItemAdded="afterItemAdded" beforeItemAdded="beforeItemAdded"
+												maxFileSize="200" mediaTypes="text/plain,application/msword,image/jpeg" items="{oModel>/items}">
+												<upload:toolbar>
+													<OverflowToolbar>
+														<!--<Button id="uploadSelectedButton" text="Upload selected" press="onUploadSelectedButton"/>-->
+														<!--<Button id="downloadSelectedButton" text="Download selected" press="onDownloadSelectedButton"/>-->
+													</OverflowToolbar>
+												</upload:toolbar>
+												<upload:items>
+													<upload:UploadSetItem class="" fileName="{oModel>fileName}" mediaType="{oModel>mediaType}" url="{oModel>url}"
+														thumbnailUrl="{oModel>thumbnailUrl}" attributes="{path: 'attributes', templateShareable: false}" enabledEdit="false">
+														<upload:attributes>
+															<ObjectAttribute title="{oModel>title}" text="{oModel>text}" active="{oModel>active}"/>
+														</upload:attributes>
+														<!--<upload:markers>-->
+														<!--	<ObjectMarker type="{type}" visibility="{visibility}"/>-->
+														<!--</upload:markers>-->
+														<!--<upload:statuses>-->
+														<!--	<ObjectStatus title="{title}" text="{text}" state="{state}" icon="{icon}" active="{active}"/>-->
+														<!--</upload:statuses>-->
+													</upload:UploadSetItem>
+												</upload:items>
+											</upload:UploadSet>
+										</form:content>
+									</form:SimpleForm>
+									<layout:Grid defaultSpan="XL1 L1 M2 S2" class="sapUiSmallMarginTop">
+										<!--<layout:Grid defaultSpan="XL2 L2 M2 S2" defaultIndent="XL4 L4 M3 S3">-->
+										<!--<Button id="btnPR_Guardar" class="clsBotonEst1" text="Guardar" type="Emphasized" press="onGuardarReclamo"/>-->
+										<!--<Button class="clsBotonEst1" text="Cancelar" type="Emphasized" press="pressHome"/>-->
+										<!--</layout:Grid>-->
+									</layout:Grid>
+								</VBox>
+							</VBox>
+							<!--</content>-->
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+		</uxap:sections>
+		<uxap:footer>
+			<OverflowToolbar class="">
+				<content>
+					<ToolbarSpacer/>
+					<Button id="btnPR_Guardar" class="clsBotonEst1" text="Guardar" type="Emphasized" press="onGuardarReclamo"/>
+					<Button class="clsBotonEst1" text="Cancelar" type="Emphasized" press="onSeguimientoReclamo"/>
+				</content>
+			</OverflowToolbar>
+		</uxap:footer>
+	</uxap:ObjectPageLayout>
+</mvc:View>

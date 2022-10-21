@@ -1,0 +1,113 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:m="sap.m" xmlns:f="sap.f" xmlns:layout="sap.ui.layout"
+	xmlns:table="sap.ui.table" xmlns:form="sap.ui.layout.form" controllerName="apph.aplicacion.controller.Carga_masiva"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<!-- <Image id="bg_imagen" src="./images/plantilla.png"/> -->
+	<Page class="Reporte">
+		<m:customHeader>
+			<m:Bar class="Cabecera clsCabeceraStyle_1">
+				<m:contentLeft>
+					<Button id="back" class="" icon="sap-icon://nav-back" press="pressHome"/>
+				</m:contentLeft>
+				<m:contentMiddle>
+					<Title class="classiconoblanco" text="CARGA MASIVA"></Title>
+				</m:contentMiddle>
+				<m:contentRight>
+					<Button icon="sap-icon://customer" type="Transparent" press=".onMenuDerecha" ariaHasPopup="Menu">
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</layoutData>
+					</Button>
+				</m:contentRight>
+			</m:Bar>
+		</m:customHeader>
+		<content>
+			<f:DynamicPage id="dynamicPageId" headerExpanded="true" preserveHeaderStateOnScroll="true" toggleHeaderOnTitleClick="false">
+				<f:header>
+					<f:DynamicPageHeader pinnable="false" class="clsFiltros">
+						<layout:Grid defaultSpan="L6 M6 S12">
+							<layout:content>
+								<MessageStrip id="MS_ValidoHasta" text="{oModel>/FechaCarga}" type="Success" class="sapUiMediumMarginBottom"></MessageStrip>
+							</layout:content>
+						</layout:Grid>
+					</f:DynamicPageHeader>
+				</f:header>
+				<f:content>
+					<!--Title text="Cabecera de pedidos"/-->
+					<table:Table id="idCargaMasivaTblCab" class="clsTblEstadoCuenta clsTblStyle1" selectionMode="None" rows="{oModel>/CargaMasivaCab}"
+						sort="sortDeliveryDate" ariaLabelledBy="title" alternateRowColors="true" showColumnVisibilityMenu="false" enableColumnFreeze="false"
+						enableCellFilter="false">
+						<table:extension>
+							<m:OverflowToolbar style="Clear">
+								<m:Title id="title" text="Cabecera de pedidos"/>
+								<m:ToolbarSpacer/>
+								<!--<Button class="clsBotonEst1" icon="sap-icon://refresh" type="Emphasized" press="fnRefrescar"/>-->
+								<!--<Button class="clsBotonEst1" icon="sap-icon://excel-attachment" type="Emphasized" press="fnDescargar"/>-->
+							</m:OverflowToolbar>
+						</table:extension>
+						<table:columns>
+							<table:Column hAlign="Center" width="6rem" minWidth="40px" sortProperty="ESTADO" filterProperty="ESTADO">
+								<m:Label text="Estado" textAlign="Center"/>
+								<table:template>
+									<ObjectStatus class="sapUiSmallMarginBottom" text="" icon="{oModel>icon}" state="{oModel>state}"/>
+								</table:template>
+							</table:Column>
+							<table:Column hAlign="Center" minWidth="100px" sortProperty="NUM_PEDIDO" filterProperty="NUM_PEDIDO">
+								<m:Label text="Nro registro" textAlign="Center"/>
+								<table:template>
+									<m:Text text="{oModel>NUM_PEDIDO}" wrapping="false"/>
+								</table:template>
+							</table:Column>
+							<table:Column hAlign="Center" minWidth="100px" sortProperty="FECHA_ENTREGA" filterProperty="FECHA_ENTREGA">
+								<m:Label text="Fecha de entrega"/>
+								<table:template>
+									<m:Text text="{oModel>FECHA_ENTREGA}" wrapping="false"/>
+								</table:template>
+							</table:Column>
+							<table:Column hAlign="Center" minWidth="100px" sortProperty="ORDEN_DE_COMPRA" filterProperty="ORDEN_DE_COMPRA">
+								<m:Label text="Orden de compra"/>
+								<table:template>
+									<m:Text text="{oModel>ORDEN_DE_COMPRA}" wrapping="false"/>
+								</table:template>
+							</table:Column>
+							<table:Column hAlign="Center" minWidth="100px" sortProperty="RECOJO_EN_CENTRO" filterProperty="RECOJO_EN_CENTRO">
+								<m:Label text="Recojo en centro"/>
+								<table:template>
+									<m:CheckBox enabled="false" selected="{oModel>RECOJO_EN_CENTRO_B}"/>
+								</table:template>
+							</table:Column>
+							<table:Column hAlign="Center" minWidth="100px" resizable="true">
+								<m:Text text="Acción"/>
+								<table:template>
+									<HBox alignContent="Center" alignItems="Center" justifyContent="Center">
+										<Button class="sapUiTinyMarginEnd" tooltip="Visualizar" icon="sap-icon://show" type="Success" press="onVisualizar"/>
+										<Button tooltip="Eliminar" icon="sap-icon://delete" type="Negative" press="onEliminar"/>
+									</HBox>
+								</table:template>
+							</table:Column>
+						</table:columns>
+					</table:Table>
+				</f:content>
+				<!--<f:footer>-->
+				<!--	<OverflowToolbar>-->
+				<!--		<Button icon="sap-icon://message-popup" text="{/messagesLength}" type="Emphasized" press="onMessageButtonPress"-->
+				<!--			visible="{= !!${/messagesLength}}"/>-->
+				<!--		<ToolbarSpacer/>-->
+				<!--		<Button type="Accept" text="Guardar" press="onGuardarPedidoConf"/>-->
+				<!--		<Button type="Reject" text="Cancelar"/>-->
+				<!--	</OverflowToolbar>-->
+				<!--</f:footer>-->
+			</f:DynamicPage>
+		</content>
+		<footer>
+			<OverflowToolbar class="">
+				<content>
+					<Button icon="sap-icon://message-popup" class="clsBotonEst1" text="{/messagesLength}" type="Emphasized" press="handleDialogPress"
+						visible="{= !!${/messagesLength}}"/>
+					<ToolbarSpacer/>
+					<Button id="btnGuardar" class="clsBotonEst1" text="Guardar" type="Emphasized" press="onGuardarPedidoConf"/>
+					<Button class="clsBotonEst1" text="Cancelar" type="Emphasized" press="pressHome"/>
+				</content>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

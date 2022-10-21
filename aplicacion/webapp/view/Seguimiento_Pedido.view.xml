@@ -1,0 +1,177 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:m="sap.m" xmlns:f="sap.f" xmlns:layout="sap.ui.layout"
+	xmlns:table="sap.ui.table" xmlns:form="sap.ui.layout.form" controllerName="apph.aplicacion.controller.Seguimiento_Pedido"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<!-- <Image id="bg_imagen" src="./images/plantilla.png"/> -->
+	<Page class="" showSubHeader="true">
+		<m:customHeader>
+			<m:Bar class="Cabecera clsCabeceraStyle_1">
+				<m:contentLeft>
+					<Button id="back" class="" icon="sap-icon://nav-back" press="pressHome"/>
+					<!--<Button id="button" class="clsMenu" icon="sap-icon://menu2" press="onPressMenu"/>-->
+					<!--<m:Image src="./images/logo.png" class="Logo clsLogoRedondos" press="pressHome" height="3rem"/>-->
+				</m:contentLeft>
+				<m:contentMiddle>
+					<Title id="NReclamoEditar" class="classiconoblanco" text="SEGUIMIENTO PEDIDO"></Title>
+				</m:contentMiddle>
+				<m:contentRight>
+					<Button icon="sap-icon://customer" type="Transparent" press=".onMenuDerecha">
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</layoutData>
+					</Button>
+				</m:contentRight>
+			</m:Bar>
+		</m:customHeader>
+		<content style="height: auto !important;">
+			<SplitApp id="id_SP_Split" class="clasSP_SplitApp" initialDetail="detail" initialMaster="master">
+				<masterPages>
+					<Page id="master" backgroundDesign="List">
+						<customHeader>
+							<m:Bar class="Cabecera clsCabeceraStyle_2">
+								<m:contentLeft></m:contentLeft>
+								<m:contentMiddle>
+									<Title text="Pedido"></Title>
+								</m:contentMiddle>
+								<m:contentRight>
+									<Button class="clsBotonEst1" icon="sap-icon://filter" type="Emphasized" press="fnFiltro"></Button>
+								</m:contentRight>
+							</m:Bar>
+						</customHeader>
+						<subHeader>
+							<m:Bar class="Cabecera clsCabeceraStyle_2">
+								<m:contentLeft></m:contentLeft>
+								<m:contentMiddle>
+									<SearchField id='id_SP_Search' liveChange=".onSearch" width="100%"/>
+								</m:contentMiddle>
+								<m:contentRight>
+								</m:contentRight>
+							</m:Bar>
+						</subHeader>
+						<content>
+							<List id="id_SP_ListaPedido" items="{oModel>/LISTA_PEDIDO_CAB}" mode="SingleSelectMaster" select="onPedidoDetalle"
+								noDataText="No se encontraron registros">
+								<ObjectListItem icon="sap-icon://request" title="{oModel>NRO_PEDIDO}" type="Active" press="onPedidoDetalle">
+									<firstStatus>
+										<ObjectStatus text="{oModel>ESTADO_T}" state="{oModel>STATUS}"/>
+									</firstStatus>
+									<ObjectAttribute text=" "/>
+									<ObjectAttribute text="{oModel>ERDAT_T}"/>
+									<ObjectAttribute text="{oModel>VDATU_T}"/>
+								</ObjectListItem>
+							</List>
+						</content>
+					</Page>
+				</masterPages>
+				<detailPages>
+					<Page id="detail" backgroundDesign="Solid">
+						<customHeader>
+							<m:Bar class="Cabecera clsCabeceraStyle_2">
+								<m:contentLeft>
+									<Button class="clsBotonEst1 clsNavButton" text="" icon="sap-icon://nav-back" type="Emphasized" press="onPressDetailBack"></Button>
+								</m:contentLeft>
+								<m:contentMiddle>
+									<Title text="Detalle"></Title>
+								</m:contentMiddle>
+								<m:contentRight>
+									<Button id="idSP_Detail" tooltip="Ver pedido inicial" class="clsBotonEst1" icon="sap-icon://detail-view" type="Emphasized" press="onDetailPedido" enabled="false"></Button>
+									<Button id="idSP_Edit" tooltip="Editar" class="clsBotonEst1" icon="sap-icon://edit" type="Emphasized" press="onEditPedido" enabled="false"></Button>
+									<Button id="idSP_Delete" tooltip="Borrar" class="clsBotonEst1" icon="sap-icon://delete" type="Emphasized" press="onDelConfPedido" enabled="false"></Button>
+								</m:contentRight>
+							</m:Bar>
+						</customHeader>
+						<ObjectHeader id="id_SP_ObjectHeader" responsive="true" fullScreenOptimized="false" binding="{oModel>/PEDIDO_CAB}" icon="sap-icon://product"
+							intro="{oModel>/PEDIDO_CAB/DEST_NAME_T}" title="{oModel>/PEDIDO_CAB/NRO_PEDIDO}" titleActive="true" titlePress="handleTitlePress"
+							number="{oModel>/PEDIDO_CAB/NETWR}" numberUnit="{oModel>/PEDIDO_CAB/WAERK}" numberState="Success" backgroundDesign="Translucent"
+							class="sapUiResponsivePadding--header clsObjectHeader">
+							<ObjectAttribute title="Pedido SAP" text="{oModel>/PEDIDO_CAB/VBELN}"/>
+							<ObjectAttribute title="Guía de remisión" text="{oModel>/PEDIDO_CAB/XBLNR}"/>
+							<ObjectAttribute title="Condición de pago" text="{oModel>/PEDIDO_CAB/TIPO_PAGO}"/>
+							<ObjectAttribute title="Fec. registro" text="{oModel>/PEDIDO_CAB/ERDAT_C}"/>
+							<ObjectAttribute title="Hora registrada" text="{oModel>/PEDIDO_CAB/ERZET}"/>
+							<ObjectAttribute title="Fec. entrega" text="{oModel>/PEDIDO_CAB/VDATU_C}"/>
+							<!--<ObjectAttribute-->
+							<!--	title="Weight per unit"-->
+							<!--	text="*{WeightMeasure} {WeightUnit}"/>-->
+							<!--<ObjectAttribute-->
+							<!--	title="Dimension per unit"-->
+							<!--	text="*{Width} x {Depth} x {Height} {DimUnit}"/>-->
+							<statuses>
+								<ObjectStatus title="Estado" text="{oModel>/PEDIDO_CAB/ESTADO_T}" state="{oModel>/PEDIDO_CAB/STATUS}"/>
+							</statuses>
+						</ObjectHeader>
+						<VBox class="sapUiContentPadding clsSP_tbl">
+							<table:Table id="id_SP_TblDetalle" class="clsTblStyle1" selectionMode="None" rows="{oModel>/LISTA_PEDIDO_DET}" sort="sortDeliveryDate" ariaLabelledBy="title"
+								alternateRowColors="true" showColumnVisibilityMenu="false" enableColumnFreeze="false" enableCellFilter="false">
+								<table:extension>
+									<m:OverflowToolbar style="Clear">
+										<m:Title id="title" text=""/>
+										<m:ToolbarSpacer/>
+										<!--<Button class="clsBotonEst1" icon="sap-icon://refresh" type="Emphasized" press="fnRefrescar"/>-->
+										<Button class="clsBotonEst1" icon="sap-icon://pdf-attachment" type="Emphasized" press="onPDF"/>
+										<Button class="clsBotonEst1" icon="sap-icon://excel-attachment" type="Emphasized" press="fnDescargar"/>
+									</m:OverflowToolbar>
+								</table:extension>
+								<table:columns>
+									<table:Column id="tbl1_posicion" autoResizable='true' resizable="true" sortProperty="POSNR" filterProperty="POSNR">
+										<m:Label text="Posición" textAlign="Center"/>
+										<table:template>
+											<m:Text text="{oModel>POSNR}" wrapping="false"/>
+										</table:template>
+									</table:Column>
+									<table:Column id="tbl1_material" minWidth="100px" resizable="true" sortProperty="MATNR" filterProperty="MATNR">
+										<m:Label text="Material"/>
+										<table:template>
+											<m:Text text="{oModel>MATNR}" wrapping="false"/>
+										</table:template>
+									</table:Column>
+									<table:Column id="tbl1_texto" width="26rem" minWidth="200px" sortProperty="ARKTX" filterProperty="ARKTX">
+										<m:Label text="Descripción"/>
+										<table:template>
+											<m:Label text="{oModel>ARKTX}"/>
+										</table:template>
+									</table:Column>
+									<table:Column id="tbl1_cantacum" minWidth="100px" hAlign="End" sortProperty="KWMENG">
+										<m:Label text="Cant. acumulada"/>
+										<table:template>
+											<m:Label text="{oModel>KWMENG}"/>
+										</table:template>
+									</table:Column>
+									<table:Column id="tbl1_un_medida" minWidth="100px" sortProperty="VRKME" filterProperty="VRKME">
+										<m:Label text="Unidad de venta"/>
+										<table:template>
+											<m:Text text="{oModel>VRKME}" wrapping="false"/>
+										</table:template>
+									</table:Column>
+									<!--<table:Column id="tbl1_importe" minWidth="100px" hAlign="End" sortProperty="NETWR">-->
+									<!--	<m:Label text="Importe"/>-->
+									<!--	<table:template>-->
+									<!--		<m:Label text="{oModel>NETWR}"/>-->
+									<!--	</table:template>-->
+									<!--</table:Column>-->
+									<!--<table:Column id="tbl1_un_cond" minWidth="100px" sortProperty="WAERK" filterProperty="WAERK">-->
+									<!--	<m:Label text="Moneda"/>-->
+									<!--	<table:template>-->
+									<!--		<m:Text text="{oModel>WAERK}" wrapping="false"/>-->
+									<!--	</table:template>-->
+									<!--</table:Column>-->
+									<table:Column id="tbl1_centro" width="26rem" minWidth="100px" sortProperty="WERKS" filterProperty="WERKS">
+										<m:Label text="Centro"/>
+										<table:template>
+											<m:Text text="{oModel>CENTRO}" wrapping="false"/>
+										</table:template>
+									</table:Column>
+									<table:Column id="tbl1_almacen" width="26rem" minWidth="100px" sortProperty="LGORT" filterProperty="LGORT">
+										<m:Label text="Almacén"/>
+										<table:template>
+											<m:Text text="{oModel>ALMACEN}" wrapping="false"/>
+										</table:template>
+									</table:Column>
+								</table:columns>
+							</table:Table>
+						</VBox>
+					</Page>
+				</detailPages>
+			</SplitApp>
+		</content>
+	</Page>
+</mvc:View>

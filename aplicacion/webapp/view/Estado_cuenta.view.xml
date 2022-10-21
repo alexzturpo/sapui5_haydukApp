@@ -1,0 +1,396 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:m="sap.m" xmlns:f="sap.f" xmlns:layout="sap.ui.layout"
+	xmlns:table="sap.ui.table" xmlns:form="sap.ui.layout.form" controllerName="apph.aplicacion.controller.Estado_cuenta"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<!-- <Image id="bg_imagen" src="./images/plantilla.png"/> -->
+	<Page class="clsEstadoCuenta" showSubHeader="true">
+		<m:customHeader>
+			<m:Bar class="Cabecera clsCabeceraStyle_1">
+				<m:contentLeft>
+					<Button id="back" class="" icon="sap-icon://nav-back" press="pressHome"/>
+					<!--<Button id="button" class="clsMenu" icon="sap-icon://menu2" press="onPressMenu"/>-->
+					<!--<m:Image src="./images/logo.png" class="Logo clsLogoRedondos" press="pressHome" height="3rem"/>-->
+				</m:contentLeft>
+				<m:contentMiddle>
+					<Title class="classiconoblanco" text="ESTADO DE CUENTA"></Title>
+				</m:contentMiddle>
+				<m:contentRight>
+					<Button icon="sap-icon://customer" type="Transparent" press=".onMenuDerecha">
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</layoutData>
+					</Button>
+				</m:contentRight>
+			</m:Bar>
+		</m:customHeader>
+		<content>
+			<!--<layout:Grid defaultSpan="XL6 L6 M6 S12">-->
+			<!--<form:SimpleForm id="SimpleFormChangeColumn_oneGroup"-->
+			<!--	editable="true"-->
+			<!--	layout="ColumnLayout"-->
+			<!--	title="Address" >-->
+			<!--	<form:content>-->
+			<!--		<Label text="Desde"/>-->
+			<!--		<DatePicker class="" id="id_Datepicker1" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" required="true" placeholder="DD/MM/AAAA"-->
+			<!--			change="fnValidarFechaFiltro"/>-->
+			<!--		<Label text="Hasta"/>-->
+			<!--		<DatePicker class="" id="id_Datepicker2" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" required="true" placeholder="DD/MM/AAAA"-->
+			<!--			change="fnValidarFechaFiltro"/>-->
+			<!--	</form:content>-->
+			<!--</form:SimpleForm>-->
+			<!--</layout:Grid>-->
+			<VBox class="clsFechaConsulta clsEC_MsgStrip clsEC_Contenido" alignContent="End" alignItems="End" justifyContent="End">
+				<ObjectStatus id="id_Datepicker3" text="" inverted="true" state="Success"/>
+				<!--<Label id="id_Datepicker3" text="Consultado al "/>-->
+			</VBox>
+			<VBox id="idEC_Contenido" class="clsEC_Contenido">
+				<layout:VerticalLayout width="100%" class="clsCabeceraFiltro">
+					<layout:Grid defaultSpan="XL2 L2 M6 S12">
+						<Toolbar id="toolbar1">
+							<Label text="Desde">
+								<layoutData>
+									<ToolbarLayoutData shrinkable="false"/>
+								</layoutData>
+							</Label>
+							<ToolbarSpacer/>
+							<DatePicker class="clsBtnFiltro" id="id_Datepicker1" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" required="true"
+								placeholder="DD/MM/AAAA" change="fnValidarFechaFiltro">
+								<layoutData>
+									<ToolbarLayoutData shrinkable="true"/>
+								</layoutData>
+							</DatePicker>
+						</Toolbar>
+						<Toolbar class="" id="toolbar2">
+							<Label text="Hasta">
+								<layoutData>
+									<ToolbarLayoutData shrinkable="false"/>
+								</layoutData>
+							</Label>
+							<ToolbarSpacer/>
+							<DatePicker class="clsBtnFiltro" id="id_Datepicker2" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" required="true"
+								placeholder="DD/MM/AAAA" change="fnValidarFechaFiltro">
+								<layoutData>
+									<ToolbarLayoutData shrinkable="true"/>
+								</layoutData>
+							</DatePicker>
+						</Toolbar>
+						<Toolbar class="" id="toolbar3">
+							<Button class="clsBtn_Buscar clsBtnStyle2" text="Buscar" press="onBuscarEstCuenta">
+								<layoutData>
+									<ToolbarLayoutData shrinkable="false"/>
+								</layoutData>
+							</Button>
+						</Toolbar>
+					</layout:Grid>
+					<!--<Toolbar class="sapUiMediumMarginTop" id="toolbar3">-->
+					<!--	<Label text="Desde">-->
+					<!--		<layoutData>-->
+					<!--				<ToolbarLayoutData shrinkable="false" />-->
+					<!--		</layoutData>-->
+					<!--	</Label>-->
+					<!--	<ToolbarSpacer/>-->
+					<!--	<DatePicker class="clsBtnFiltro" id="id_Datepicker3" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" required="true" placeholder="DD/MM/AAAA"-->
+					<!--		change="fnValidarFechaFiltro">-->
+					<!--		<layoutData>-->
+					<!--				<ToolbarLayoutData shrinkable="true" />-->
+					<!--		</layoutData>-->
+					<!--	</DatePicker>-->
+					<!--</Toolbar>-->
+					<!--<layout:Grid defaultSpan="XL4 L4 M4 S4">-->
+					<!--	<Input editable="false" value="Desde"/>-->
+					<!--	<DatePicker class="clsBtnFiltro" id="id_Datepicker1" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" required="true" placeholder="DD/MM/AAAA"-->
+					<!--		change="fnValidarFechaFiltro">-->
+					<!--		<layoutData>-->
+					<!--			<layout:GridData span="XL6 L6 M6 S6" />-->
+					<!--		</layoutData>-->
+					<!--	</DatePicker>-->
+					<!--</layout:Grid>-->
+					<!--<layout:Grid defaultSpan="XL6 L6 M6 S6">-->
+					<!--	<Input editable="false" value="Hasta"/>-->
+					<!--	<DatePicker class="clsBtnFiltro" id="id_Datepicker2" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" required="true" placeholder="DD/MM/AAAA"-->
+					<!--		change="fnValidarFechaFiltro">-->
+					<!--		<layoutData>-->
+					<!--			<layout:GridData span="XL6 L6 M6 S6" />-->
+					<!--		</layoutData>-->
+					<!--	</DatePicker>-->
+					<!--</layout:Grid>-->
+					<!--<layout:Grid defaultSpan="XL6 L6 M6 S6">-->
+					<!--	<Input editable="false" value="Fecha consulta"/>-->
+					<!--	<DatePicker class="clsBtnEstado" id="id_Datepicker3" editable="false" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" required="true" placeholder="DD/MM/AAAA">-->
+					<!--		<layoutData>-->
+					<!--			<layout:GridData span="XL6 L6 M6 S6" />-->
+					<!--		</layoutData>-->
+					<!--	</DatePicker>-->
+					<!--</layout:Grid>-->
+					<!--<layout:Grid defaultSpan="XL2 L2 M6 S12">-->
+					<!--	<Toolbar id="toolbar1">-->
+					<!--		<Label text="Desde">-->
+					<!--			<layoutData>-->
+					<!--				<ToolbarLayoutData shrinkable="false"/>-->
+					<!--			</layoutData>-->
+					<!--		</Label>-->
+					<!--		<ToolbarSpacer/>-->
+					<!--		<DatePicker class="clsBtnFiltro" id="id_Datepicker1" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" required="true"-->
+					<!--			placeholder="DD/MM/AAAA" change="fnValidarFechaFiltro">-->
+					<!--			<layoutData>-->
+					<!--				<ToolbarLayoutData shrinkable="true"/>-->
+					<!--			</layoutData>-->
+					<!--		</DatePicker>-->
+					<!--	</Toolbar>-->
+					<!--	<Toolbar class="" id="toolbar2">-->
+					<!--		<Label text="Hasta">-->
+					<!--			<layoutData>-->
+					<!--				<ToolbarLayoutData shrinkable="false"/>-->
+					<!--			</layoutData>-->
+					<!--		</Label>-->
+					<!--		<ToolbarSpacer/>-->
+					<!--		<DatePicker class="clsBtnFiltro" id="id_Datepicker2" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" required="true"-->
+					<!--			placeholder="DD/MM/AAAA" change="fnValidarFechaFiltro">-->
+					<!--			<layoutData>-->
+					<!--				<ToolbarLayoutData shrinkable="true"/>-->
+					<!--			</layoutData>-->
+					<!--		</DatePicker>-->
+					<!--	</Toolbar>-->
+					<!--	<Toolbar class="" id="toolbar3">-->
+					<!--		<Button class="clsBtn_Buscar" text="Buscar" press="onBuscarEstCuenta">-->
+					<!--			<layoutData>-->
+					<!--				<ToolbarLayoutData shrinkable="false"/>-->
+					<!--			</layoutData>-->
+					<!--		</Button>-->
+					<!--</Toolbar>-->
+					<!--</layout:Grid>-->
+					<!--<Toolbar class="sapUiMediumMarginTop" id="toolbar3">-->
+					<!--	<Label text="Desde">-->
+					<!--		<layoutData>-->
+					<!--				<ToolbarLayoutData shrinkable="false" />-->
+					<!--		</layoutData>-->
+					<!--	</Label>-->
+					<!--	<ToolbarSpacer/>-->
+					<!--	<DatePicker class="clsBtnFiltro" id="id_Datepicker3" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" required="true" placeholder="DD/MM/AAAA"-->
+					<!--		change="fnValidarFechaFiltro">-->
+					<!--		<layoutData>-->
+					<!--				<ToolbarLayoutData shrinkable="true" />-->
+					<!--		</layoutData>-->
+					<!--	</DatePicker>-->
+					<!--</Toolbar>-->
+					<!--<layout:Grid defaultSpan="L2 M4 S12">-->
+					<!--	<HBox class="sapUiTinyMargin" justifyContent="Center" alignItems="Center" alignContent="Center">-->
+					<!--<layout:Grid defaultSpan="L6 M6 S6">-->
+					<!--		<Label text="Desde"/>-->
+					<!--		<DatePicker class="clsBtnFiltro" id="id_Datepicker1" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" required="true"-->
+					<!--			placeholder="DD/MM/AAAA" change="fnValidarFechaFiltro">-->
+					<!--<layoutData>-->
+					<!--	<layout:GridData span="XL6 L6 M6 S6"/>-->
+					<!--</layoutData>-->
+					<!--		</DatePicker>-->
+					<!--</layout:Grid>-->
+					<!--	</HBox>-->
+					<!--	<VBox class="sapUiTinyMargin" justifyContent="Start" alignItems="Start">-->
+					<!--</layout:Grid>-->
+					<!--<layout:Grid defaultSpan="XL6 L6 M6 S6">-->
+					<!--		<Label text="Hasta"/>-->
+					<!--		<DatePicker class="clsBtnFiltro" id="id_Datepicker2" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" required="true"-->
+					<!--			placeholder="DD/MM/AAAA" change="fnValidarFechaFiltro">-->
+					<!--<layoutData>-->
+					<!--	<layout:GridData span="XL6 L6 M6 S6"/>-->
+					<!--</layoutData>-->
+					<!--		</DatePicker>-->
+					<!--	</VBox>-->
+					<!--	<VBox class="sapUiTinyMargin" justifyContent="Start" alignItems="Start" alignContent="End">-->
+					<!--		<Button class="clsBtn_Buscar" text="Buscar" press="onBuscarEstCuenta"/>-->
+					<!--	</VBox>-->
+					<!--</layout:Grid>-->
+					<!--<layout:Grid defaultSpan="XL3 L3 M6 S12">-->
+					<!--	<form:SimpleForm id="SimpleFormToolbar" editable="true"-->
+					<!--		layout="ColumnLayout"-->
+					<!--		title="Address">-->
+					<!--		<form:content>-->
+					<!--<Label text="Desde"/>-->
+					<!--<DatePicker class="" id="id_Datepicker1" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" required="true" placeholder="DD/MM/AAAA"-->
+					<!--	change="fnValidarFechaFiltro"/>-->
+					<!--<Label text="Hasta"/>-->
+					<!--<DatePicker class="" id="id_Datepicker2" valueFormat="yyyyMMdd" displayFormat="dd/MM/yyyy" required="true" placeholder="DD/MM/AAAA"-->
+					<!--	change="fnValidarFechaFiltro"/>-->
+					<!--		</form:content>-->
+					<!--	</form:SimpleForm>-->
+					<!--</layout:Grid>-->
+				</layout:VerticalLayout>
+				<!--<form:SimpleForm id="SimpleFormToolbar3" editable="true" layout="ColumnLayout" adjustLabelSpan="false" singleContainerFullSize="true">-->
+				<!--	<form:content>-->
+				<!--		<Button class="" text="Buscar" press="onBuscarEstCuenta">-->
+				<!--			<layoutData>-->
+				<!--				<layout:GridData span="XL3 L3 M3 S12"/>-->
+				<!--			</layoutData>-->
+				<!--		</Button>-->
+				<!--	</form:content>-->
+				<!--</form:SimpleForm>-->
+				<VBox class="sapUiTinyMarginBegin " alignContent="Start" alignItems="Start" justifyContent="Start">
+					<MessageStrip id="id_ValidacionFecha" text="Error with default icon and close button:" type="Error" showIcon="true" visible="false"
+						showCloseButton="true" class="sapUiMediumMarginBottom "></MessageStrip>
+				</VBox>
+				<VBox class="clsTitulo" id="idEC_Titulo" alignContent="Center" alignItems="Center" justifyContent="Center">
+					<Title level="H1" text="ESTADO DE CUENTA"/>
+				</VBox>
+				<layout:VerticalLayout width="100%" id="idEC_Info">
+					<layout:Grid defaultSpan="XL6 L6 M12 S12">
+						<layout:Grid defaultSpan="XL3 L3 M4 S12">
+							<!--<ObjectAttribute title="Id cliente" text="{oModel>/ESTADO_CUENTA_CAB/RUC_CLIENTE}" active="true"/>-->
+							<!--<ObjectAttribute title="Nombre cliente" text="{oModel>/ESTADO_CUENTA_CAB/NOMBRE_CLIENTE}" active="true"/>-->
+							<!--<ObjectAttribute title="Dirección fiscal" text="{oModel>/ESTADO_CUENTA_CAB/DIRECCION_CLIENTE}" active="true"/>-->
+							<!--<ObjectAttribute title="Línea crédito" text="{oModel>/ESTADO_CUENTA_CAB/LINEA_CREDITO}" active="true"/>-->
+							<!--<ObjectAttribute title="Condición pago" text="{oModel>/ESTADO_CUENTA_CAB/COND_PAGO}" active="true"/>-->
+							<!--<ObjectAttribute title="Ejec. cobranza" text="{oModel>/ESTADO_CUENTA_CAB/EJEC_COBRANZA}" active="true"/>-->
+							<!--<ObjectAttribute title="Nro. contacto" text="{oModel>/ESTADO_CUENTA_CAB/NRO_CONTACTO}" active="true"/>-->
+							<Label design="Bold" text="Id cliente"/>
+							<Label text="{oModel>/ESTADO_CUENTA_CAB/RUC_CLIENTE}">
+								<layoutData>
+									<layout:GridData span="XL8 L8 M8 S12"/>
+								</layoutData>
+							</Label>
+							<Label design="Bold" text="Nombre cliente"/>
+							<Label text="{oModel>/ESTADO_CUENTA_CAB/NOMBRE_CLIENTE}">
+								<layoutData>
+									<layout:GridData span="XL8 L8 M8 S12"/>
+								</layoutData>
+							</Label>
+							<Label design="Bold" text="Dirección fiscal"/>
+							<Label text="{oModel>/ESTADO_CUENTA_CAB/DIRECCION_CLIENTE}">
+								<layoutData>
+									<layout:GridData span="XL8 L8 M8 S12"/>
+								</layoutData>
+							</Label>
+							<Label design="Bold" text="Línea crédito"/>
+							<Label text="{oModel>/ESTADO_CUENTA_CAB/LINEA_CREDITO}">
+								<layoutData>
+									<layout:GridData span="XL8 L8 M8 S12"/>
+								</layoutData>
+							</Label>
+							<Label design="Bold" text="Condición pago"/>
+							<Label text="{oModel>/ESTADO_CUENTA_CAB/COND_PAGO}">
+								<layoutData>
+									<layout:GridData span="XL8 L8 M8 S12"/>
+								</layoutData>
+							</Label>
+							<Label design="Bold" text="Ejec. cobranza"/>
+							<Label text="{oModel>/ESTADO_CUENTA_CAB/EJEC_COBRANZA}">
+								<layoutData>
+									<layout:GridData span="XL8 L8 M8 S12"/>
+								</layoutData>
+							</Label>
+							<Label design="Bold" text="Nro. contacto"/>
+							<Label text="{oModel>/ESTADO_CUENTA_CAB/NRO_CONTACTO}">
+								<layoutData>
+									<layout:GridData span="XL8 L8 M8 S12"/>
+								</layoutData>
+							</Label>
+						</layout:Grid>
+						<layout:Grid defaultSpan="XL4 L4 M4 S12">
+							<!--<ObjectAttribute title="EC_fecha" text="{oModel>/ESTADO_CUENTA_CAB/RUC_CLIENTE}" active="true"/>-->
+							<Label id="EC_fecha" design="Bold" text="{oModel>/ESTADO_CUENTA_CAB/EC_FECHA}">
+								<layoutData>
+									<layout:GridData span="XL12 L12 M12 S12"/>
+								</layoutData>
+							</Label>
+							<Label id="EC_saldo_inicial" design="Bold" text="{oModel>/ESTADO_CUENTA_CAB/EC_CAB_SALDO_INI}"/>
+							<Label design="Bold" text="{oModel>/ESTADO_CUENTA_CAB/SALD_INI}">
+								<layoutData>
+									<layout:GridData span="XL8 L8 M8 S12"/>
+								</layoutData>
+							</Label>
+							<Label design="Bold" text="Total mov. en el periodo"/>
+							<Label design="Bold" text="{oModel>/ESTADO_CUENTA_CAB/TOT_MOV}">
+								<layoutData>
+									<layout:GridData span="XL8 L8 M8 S12"/>
+								</layoutData>
+							</Label>
+							<Label id="EC_saldo_final" design="Bold" text="{oModel>/ESTADO_CUENTA_CAB/EC_CAB_SALDO_FIN}"/>
+							<Label design="Bold" text="{oModel>/ESTADO_CUENTA_CAB/SALD_FIN}">
+								<layoutData>
+									<layout:GridData span="XL8 L8 M8 S12"/>
+								</layoutData>
+							</Label>
+							<Label design="Bold" text="Deuda a la fecha"/>
+							<Label design="Bold" text="{oModel>/ESTADO_CUENTA_CAB/DEUDA_SOLES}">
+								<layoutData>
+									<layout:GridData span="XL8 L8 M8 S12"/>
+								</layoutData>
+							</Label>
+						</layout:Grid>
+					</layout:Grid>
+				</layout:VerticalLayout>
+				<VBox class="clsTituloHorizontal" id="idEC_Titulo2" alignContent="Start" alignItems="Center" justifyContent="Start">
+					<Title wrapping="true" id="idEC_Titulo3" level="H1" text="Movimiento del cliente del 01/01/2019 al 31/12/2021"/>
+				</VBox>
+				<table:Table id="id_EC_Detalle" class="clsTblStyle1" selectionMode="None"  rows="{oModel>/ESTADO_CUENTA_DET}" ariaLabelledBy="title">
+					<table:extension>
+						<m:OverflowToolbar style="Clear">
+							<m:ToolbarSpacer/>
+							<Button class="clsBotonEst1" icon="sap-icon://excel-attachment" type="Emphasized" press="fnDescargar"/>
+						</m:OverflowToolbar>
+					</table:extension>
+					<table:columns>
+						<table:Column hAlign="Center" minWidth="90px" sortProperty="LTEXT" filterProperty="LTEXT">
+							<m:Text text="Tip.Doc"/>
+							<table:template>
+								<m:Label text="{oModel>LTEXT}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="120px" sortProperty="BELNR" filterProperty="BELNR">
+							<m:Text text="Número documento"/>
+							<table:template>
+								<m:Label text="{oModel>BELNR}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="120px" sortProperty="XBLNR" filterProperty="XBLNR">
+							<m:Text text="Dato tributario"/>
+							<table:template>
+								<m:Label text="{oModel>XBLNR}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="120px" sortProperty="BLDAT" filterProperty="BLDAT">
+							<m:Text text="F. documento"/>
+							<table:template>
+								<m:Label text="{oModel>BLDAT}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="200px" sortProperty="CTABN" filterProperty="CTABN">
+							<m:Text text="Banco"/>
+							<table:template>
+								<m:Label text="{oModel>CTABN}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="100px" sortProperty="ZUONR" filterProperty="ZUONR">
+							<m:Text text="Asignación"/>
+							<table:template>
+								<m:Label text="{oModel>ZUONR}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Center" minWidth="90px" sortProperty="WAERS" filterProperty="WAERS">
+							<m:Text text="Moneda"/>
+							<table:template>
+								<m:Label text="{oModel>WAERS}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Right" minWidth="100px" sortProperty="WRBTR" filterProperty="WRBTR">
+							<m:Text text="Total Mon.Doc."/>
+							<table:template>
+								<m:Label text="{oModel>WRBTR}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Right" minWidth="100px" sortProperty="DMBTR" filterProperty="DMBTR">
+							<m:Text text="Total M.L."/>
+							<table:template>
+								<m:Label text="{oModel>DMBTR}"/>
+							</table:template>
+						</table:Column>
+						<table:Column hAlign="Right" minWidth="100px" sortProperty="SALDO" filterProperty="SALDO">
+							<m:Text text="Saldo documento"/>
+							<table:template>
+								<m:Label text="{oModel>SALDO}"/>
+							</table:template>
+						</table:Column>
+					</table:columns>
+				</table:Table>
+			</VBox>
+		</content>
+	</Page>
+</mvc:View>

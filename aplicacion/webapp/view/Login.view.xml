@@ -1,0 +1,71 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
+	controllerName="apph.aplicacion.controller.Login" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Image id="bg_imagen" src="./images/plantilla.png"/>
+	<Page id="page" showHeader="false" showFooter="true" class="Login">
+		<content>
+			<VBox height="100%" width="100%" alignContent="Center" justifyContent="Center">
+				<!--<m:VBox id="VBox_1" width="300px" class="sapUiSmallMargin">-->
+				<!--	<m:Title text="" titleStyle="H1"/>-->
+				<layout:VerticalLayout width="100%">
+					<layout:Grid defaultSpan="XL6 L6 M8 S12">
+						<layout:content>
+							<layout:VerticalLayout width="100%">
+								<layout:Grid defaultSpan="XL4 L6 M10 S12" defaultIndent="XL3 L3 M2 S0">
+									<layout:content>
+										<VBox width="100%" class="VBoxLogin" alignItems="Center" alignContent="Center" justifyContent="Center">
+											<VBox alignItems="Start" class="sapUiSmallMarginBottom" width="100%">
+												<Title id="T_titulo" text="Iniciar sesión" titleStyle="H1"></Title>
+											</VBox>
+											<VBox alignContent="Start" width="100%">
+												<Label class="sapUiSmallMarginTop" text="Id de usuario"  labelFor="idInput1"></Label>
+												<Input class="sapUiSmallMarginTop sapUiSmallMarginBottom" id="idInput1" liveChange="fnVerificarInputs" placeholder="Ingrese id usuario"
+													width="100%" autocomplete="false" showSuggestion="true" type="Text"/>
+												<!--<Text class="sapUiSmallMarginTop" text="Módulo"></Text>-->
+												<!--<Select forceSelection="true" width="100%" selectedKey="COM" items="{oModel>/DM_MODULO}">-->
+												<!--	<core:Item key="{oModel>MODULO}" text="{oModel>DESCRIPCION}"/>-->
+												<!--</Select>-->
+												<!--<Input class="sapUiSmallMarginTop sapUiSmallMarginBottom" id="id_Modulo" placeholder="Ingrese módulo" width="100%"/>-->
+												<Label class="sapUiSmallMarginTop" text="Contraseña"></Label>
+												<HBox class="sapUiSmallMarginTop" height="50px">
+													<VBox width="100%">
+														<Input type="Text" id="idInput2" autocomplete="false" showSuggestion="true" placeholder="Ingrese contraseña" liveChange="fnVerificarInputs" width="100%"/>
+													</VBox>
+													<VBox>
+														<Button class="sapUiTinyMarginBegin clsBtnStyle2" id="btnVisualizar" press="fnVisualizar" icon="sap-icon://show"></Button>
+													</VBox>
+												</HBox>
+												<HBox>
+													<Label id="idGenerarcaptcha" text=""/>
+													<Button press="onRefresh" class="clsBtnStyle2" icon="sap-icon://refresh"/>
+												</HBox>
+												<Input id="id_TextoCaptcha" class="sapUiSmallMarginTop" value="" placeholder="Ingrese Captcha" liveChange="fnVerificarInputs" maxLength="4"></Input>
+											</VBox>
+											<MessageStrip id="id_ValidacionUsuario" class="sapUiMediumMarginTop clsMessageStrip" showCloseButton="true"
+												text="El Usuario o Contraseña no es Correcto o el Usuario no esta activo" type="Error"></MessageStrip>
+											<VBox width="100%">
+												<Button icon="sap-icon://accept" class="sapUiMediumMarginTop clsBtnStyle2" id="id_btnIngresar" text="Ingresar" width="100%"
+													press="btnIngresar"></Button>
+												<Button icon="sap-icon://key" class="sapUiMediumMarginTop clsBtnStyle2" id="id_btnGenRecup" text="Generar / Recuperar contraseña"
+													width="100%" press="btnGenRecPassword"></Button>
+											</VBox>
+										</VBox>
+									</layout:content>
+								</layout:Grid>
+							</layout:VerticalLayout>
+						</layout:content>
+					</layout:Grid>
+				</layout:VerticalLayout>
+				<!--</m:VBox>-->
+			</VBox>
+		</content>
+		<footer>
+			<OverflowToolbar class="Footer">
+				<content>
+					<ToolbarSpacer/>
+					<Label text="Powered by:"/>
+					<Image src="./images/Logotipo.png" height="2rem"/>
+				</content>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>
